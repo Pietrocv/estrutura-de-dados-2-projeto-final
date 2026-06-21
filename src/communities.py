@@ -1,3 +1,6 @@
+from collections import deque
+
+
 LIMIAR_CORTE = 0.20
 
 
@@ -28,6 +31,71 @@ def _add_edge(graph, origin, destination):
         graph[origin].append(destination)
     if origin not in graph[destination]:
         graph[destination].append(origin)
+
+
+def _validate_graph(graph):
+    if not isinstance(graph, dict):
+        raise TypeError("O grafo deve ser um dicionario de listas de adjacencia.")
+
+    for vertex, neighbors in graph.items():
+        if not isinstance(vertex, int) or not isinstance(neighbors, list):
+            raise TypeError("O grafo deve ter vertices inteiros e listas de vizinhos.")
+
+
+def dfs_components(graph):
+    _validate_graph(graph)
+
+    visited = set()
+    communities = []
+
+    for vertex in graph:
+        if vertex in visited:
+            continue
+
+        component = []
+        stack = [vertex]
+        visited.add(vertex)
+
+        while stack:
+            current = stack.pop()
+            component.append(current)
+
+            for neighbor in graph[current]:
+                if neighbor not in visited:
+                    visited.add(neighbor)
+                    stack.append(neighbor)
+
+        communities.append(sorted(component))
+
+    return communities
+
+
+def bfs_components(graph):
+    _validate_graph(graph)
+
+    visited = set()
+    communities = []
+
+    for vertex in graph:
+        if vertex in visited:
+            continue
+
+        component = []
+        queue = deque([vertex])
+        visited.add(vertex)
+
+        while queue:
+            current = queue.popleft()
+            component.append(current)
+
+            for neighbor in graph[current]:
+                if neighbor not in visited:
+                    visited.add(neighbor)
+                    queue.append(neighbor)
+
+        communities.append(sorted(component))
+
+    return communities
 
 
 def removed_edges(edges, cut_threshold=LIMIAR_CORTE):
@@ -64,4 +132,5 @@ def remove_weak_edges(edges, matrix, cut_threshold=LIMIAR_CORTE):
         "final_graph": graph,
         "removed_edges": removed_edges(edges, cut_threshold),
         "kept_edges": kept_edges(edges, cut_threshold),
+        "communities": dfs_components(graph),
     }
