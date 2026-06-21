@@ -10,3 +10,23 @@ def jaccard(a, b):
     uniao = len(a) + len(b) - intersecao
 
     return intersecao / uniao
+
+
+def construir_matriz_adjacencia(conjuntos_lemas):
+    n = len(conjuntos_lemas)
+
+    matriz = []
+    for i in range (n):
+        linha = []
+        for j in range(n):
+            linha.append(0)
+        matriz.append(linha)
+
+    for i in range (n):
+        for j in range(i + 1, n):
+            peso = jaccard(conjuntos_lemas[i], conjuntos_lemas[j])
+            matriz[i][j] = peso
+            matriz[j][i] = peso
+
+    return matriz
+
