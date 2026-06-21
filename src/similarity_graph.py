@@ -1,3 +1,6 @@
+# Similaridade de Jaccard: divide a quantidade de lemas em comum pela quantidade total de 
+# lemas diferentes nos dois conjuntos.
+
 def jaccard(a, b):
     if len(a) == 0 and len(b) == 0:
         return 0
@@ -11,7 +14,8 @@ def jaccard(a, b):
 
     return intersecao / uniao
 
-
+# Constroi a matriz comparando cada par de feedbacks com Jaccard e salvando o peso da relacao nas 
+# posicoes simetricas.
 def construir_matriz_adjacencia(conjuntos_lemas):
     n = len(conjuntos_lemas)
 
