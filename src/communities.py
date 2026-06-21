@@ -1,257 +1,258 @@
-"""Modulo do integrante 4: corte de arestas e comunidades.
+"""Integrante 4: remocao de arestas fracas, vertices unitarios e DFS/BFS.
 
-Este modulo recebe a arvore geradora maxima produzida pelo integrante 3 e a
-matriz original de similaridade produzida pelo integrante 2. A partir disso,
-remove ligacoes fracas, encontra componentes conexos por DFS/BFS e trata
-vertices unitarios como anexacoes ou outliers.
+Este modulo recebe as arestas da arvore geradora maxima e a matriz original de
+similaridade. Primeiro remove as arestas fracas, depois identifica componentes
+conexos com DFS iterativo e, por fim, trata vertices isolados como anexacoes ou
+outliers.
 """
 
 from collections import deque
 
 
-LIMIAR_CORTE_PADRAO = 0.15
-LIMIAR_ANEXACAO_PADRAO = 0.15
+LIMIAR_CORTE = 0.20
+LIMIAR_ANEXACAO = 0.20
 
 
-def _validar_matriz_quadrada(matriz):
-    if not isinstance(matriz, list):
+def _validate_square_matrix(matrix):
+    if not isinstance(matrix, list):
         raise TypeError("A matriz deve ser uma lista de listas.")
 
-    n = len(matriz)
-    for linha in matriz:
-        if not isinstance(linha, list) or len(linha) != n:
+    size = len(matrix)
+    for row in matrix:
+        if not isinstance(row, list) or len(row) != size:
             raise ValueError("A matriz deve ser quadrada.")
 
 
-def _normalizar_aresta(aresta):
-    if len(aresta) != 3:
+def _normalize_edge(edge):
+    if len(edge) != 3:
         raise ValueError("Cada aresta deve ter o formato (origem, destino, peso).")
 
-    origem, destino, peso = aresta
-    return int(origem), int(destino), float(peso)
+    origin, destination, weight = edge
+    return int(origin), int(destination), float(weight)
 
 
-def criar_matriz_vazia(n_vertices):
-    """Cria uma matriz n x n preenchida com zero."""
-    if n_vertices < 0:
-        raise ValueError("A quantidade de vertices nao pode ser negativa.")
-
-    return [[0.0 for _ in range(n_vertices)] for _ in range(n_vertices)]
+def _empty_graph(size):
+    return {vertex: [] for vertex in range(size)}
 
 
-def construir_grafo_da_arvore(n_vertices, mst_edges):
-    """Converte a lista de arestas da AGM em matriz de adjacencia ponderada."""
-    grafo = criar_matriz_vazia(n_vertices)
-
-    for aresta in mst_edges:
-        origem, destino, peso = _normalizar_aresta(aresta)
-        if origem < 0 or destino < 0 or origem >= n_vertices or destino >= n_vertices:
-            raise ValueError("Aresta possui vertice fora do intervalo da matriz.")
-
-        grafo[origem][destino] = peso
-        grafo[destino][origem] = peso
-
-    return grafo
+def _add_edge(graph, origin, destination):
+    if destination not in graph[origin]:
+        graph[origin].append(destination)
+    if origin not in graph[destination]:
+        graph[destination].append(origin)
 
 
-def remover_arestas_fracas(
-    mst_edges,
-    n_vertices,
-    limiar_corte=LIMIAR_CORTE_PADRAO,
-    quantidade_cortes=None,
-):
-    """Remove arestas fracas da arvore.
+def _validate_graph(graph):
+    if not isinstance(graph, dict):
+        raise TypeError("O grafo deve ser um dicionario de listas de adjacencia.")
 
-    Por padrao, remove toda aresta com peso menor que ``limiar_corte``. Quando
-    ``quantidade_cortes`` e informada, remove exatamente as K menores arestas,
-    alternativa de teste prevista no documento tecnico.
-    """
-    arestas = [_normalizar_aresta(aresta) for aresta in mst_edges]
-    arestas_ordenadas = sorted(arestas, key=lambda item: item[2])
-
-    if quantidade_cortes is not None:
-        if quantidade_cortes < 0:
-            raise ValueError("A quantidade de cortes nao pode ser negativa.")
-        selecionadas_para_remocao = arestas_ordenadas[:quantidade_cortes]
-        removidas_set = set(selecionadas_para_remocao)
-    else:
-        selecionadas_para_remocao = [
-            aresta for aresta in arestas_ordenadas if aresta[2] < limiar_corte
-        ]
-        removidas_set = set(selecionadas_para_remocao)
-
-    grafo_final = criar_matriz_vazia(n_vertices)
-    for origem, destino, peso in arestas:
-        if (origem, destino, peso) in removidas_set:
-            continue
-        grafo_final[origem][destino] = peso
-        grafo_final[destino][origem] = peso
-
-    return grafo_final, selecionadas_para_remocao
+    for vertex, neighbors in graph.items():
+        if not isinstance(vertex, int) or not isinstance(neighbors, list):
+            raise TypeError("O grafo deve ter vertices inteiros e listas de vizinhos.")
 
 
-def vizinhos_do_vertice(grafo, vertice):
-    """Retorna os vizinhos conectados por arestas com peso maior que zero."""
-    return [
-        indice
-        for indice, peso in enumerate(grafo[vertice])
-        if indice != vertice and peso > 0
-    ]
+def dfs_components(graph):
+    """Encontra componentes conexos usando DFS iterativo com pilha."""
+    _validate_graph(graph)
 
+    visited = set()
+    communities = []
 
-def dfs_componentes(grafo_final):
-    """Encontra componentes conexos usando DFS iterativo."""
-    _validar_matriz_quadrada(grafo_final)
-
-    visitados = set()
-    comunidades = []
-
-    for vertice in range(len(grafo_final)):
-        if vertice in visitados:
+    for vertex in graph:
+        if vertex in visited:
             continue
 
-        componente = []
-        pilha = [vertice]
-        visitados.add(vertice)
+        component = []
+        stack = [vertex]
+        visited.add(vertex)
 
-        while pilha:
-            atual = pilha.pop()
-            componente.append(atual)
+        while stack:
+            current = stack.pop()
+            component.append(current)
 
-            for vizinho in vizinhos_do_vertice(grafo_final, atual):
-                if vizinho not in visitados:
-                    visitados.add(vizinho)
-                    pilha.append(vizinho)
+            for neighbor in graph[current]:
+                if neighbor not in visited:
+                    visited.add(neighbor)
+                    stack.append(neighbor)
 
-        comunidades.append(sorted(componente))
+        communities.append(sorted(component))
 
-    return comunidades
+    return communities
 
 
-def bfs_componentes(grafo_final):
-    """Encontra componentes conexos usando BFS, util para validacao."""
-    _validar_matriz_quadrada(grafo_final)
+def bfs_components(graph):
+    """Encontra componentes conexos usando BFS, como validacao auxiliar."""
+    _validate_graph(graph)
 
-    visitados = set()
-    comunidades = []
+    visited = set()
+    communities = []
 
-    for vertice in range(len(grafo_final)):
-        if vertice in visitados:
+    for vertex in graph:
+        if vertex in visited:
             continue
 
-        componente = []
-        fila = deque([vertice])
-        visitados.add(vertice)
+        component = []
+        queue = deque([vertex])
+        visited.add(vertex)
 
-        while fila:
-            atual = fila.popleft()
-            componente.append(atual)
+        while queue:
+            current = queue.popleft()
+            component.append(current)
 
-            for vizinho in vizinhos_do_vertice(grafo_final, atual):
-                if vizinho not in visitados:
-                    visitados.add(vizinho)
-                    fila.append(vizinho)
+            for neighbor in graph[current]:
+                if neighbor not in visited:
+                    visited.add(neighbor)
+                    queue.append(neighbor)
 
-        comunidades.append(sorted(componente))
+        communities.append(sorted(component))
 
-    return comunidades
-
-
-def _melhor_comunidade_para_vertice(vertice, comunidades, matriz_original):
-    melhor_indice = None
-    melhor_vertice = None
-    melhor_peso = 0.0
-
-    for indice, comunidade in enumerate(comunidades):
-        for candidato in comunidade:
-            peso = float(matriz_original[vertice][candidato])
-            if peso > melhor_peso:
-                melhor_peso = peso
-                melhor_indice = indice
-                melhor_vertice = candidato
-
-    return melhor_indice, melhor_vertice, melhor_peso
+    return communities
 
 
-def tratar_vertices_unitarios(
-    comunidades,
-    matriz_original,
-    grafo_final,
-    limiar_anexacao=LIMIAR_ANEXACAO_PADRAO,
-):
-    """Anexa vertices unitarios ou classifica-os como outliers.
+def _best_community_for_vertex(vertex, communities, matrix):
+    best_community = None
+    best_vertex = None
+    best_weight = 0.0
 
-    Comunidades com dois ou mais vertices sao mantidas como comunidades
-    principais. Cada comunidade unitaria e comparada com essas comunidades
-    usando a matriz original de similaridade.
-    """
-    _validar_matriz_quadrada(matriz_original)
-    _validar_matriz_quadrada(grafo_final)
+    for community in communities:
+        for candidate in community:
+            weight = float(matrix[vertex][candidate])
+            if weight > best_weight:
+                best_weight = weight
+                best_community = community
+                best_vertex = candidate
 
-    comunidades_principais = [list(c) for c in comunidades if len(c) > 1]
-    vertices_unitarios = [c[0] for c in comunidades if len(c) == 1]
+    return best_community, best_vertex, best_weight
+
+
+def _handle_single_vertex_communities(communities, matrix, graph, attach_threshold):
+    working_communities = [list(community) for community in communities]
+    single_vertices = [community[0] for community in communities if len(community) == 1]
     outliers = []
 
-    for vertice in vertices_unitarios:
-        if not comunidades_principais:
-            outliers.append(vertice)
-            continue
-
-        melhor_indice, melhor_vertice, melhor_peso = _melhor_comunidade_para_vertice(
-            vertice, comunidades_principais, matriz_original
+    for vertex in single_vertices:
+        current_community = next(
+            (
+                community
+                for community in working_communities
+                if len(community) == 1 and community[0] == vertex
+            ),
+            None,
         )
 
-        if melhor_peso >= limiar_anexacao:
-            comunidades_principais[melhor_indice].append(vertice)
-            grafo_final[vertice][melhor_vertice] = melhor_peso
-            grafo_final[melhor_vertice][vertice] = melhor_peso
-        else:
-            outliers.append(vertice)
+        if current_community is None:
+            continue
 
-    comunidades_principais = [sorted(comunidade) for comunidade in comunidades_principais]
-    comunidades_principais.sort(key=lambda comunidade: (comunidade[0], len(comunidade)))
+        candidate_communities = [
+            community for community in working_communities if community is not current_community
+        ]
+
+        if not candidate_communities:
+            outliers.append(vertex)
+            working_communities.remove(current_community)
+            continue
+
+        best_community, best_vertex, best_weight = _best_community_for_vertex(
+            vertex,
+            candidate_communities,
+            matrix,
+        )
+
+        if best_weight >= attach_threshold:
+            best_community.append(vertex)
+            _add_edge(graph, vertex, best_vertex)
+            working_communities.remove(current_community)
+        else:
+            outliers.append(vertex)
+            working_communities.remove(current_community)
+
+    final_communities = [sorted(community) for community in working_communities]
+    final_communities.sort(key=lambda community: (community[0], len(community)))
     outliers.sort()
 
-    return comunidades_principais, outliers, grafo_final
+    return final_communities, outliers
 
 
-def detectar_comunidades(
-    mst_edges,
-    matriz_original,
-    limiar_corte=LIMIAR_CORTE_PADRAO,
-    limiar_anexacao=LIMIAR_ANEXACAO_PADRAO,
-    quantidade_cortes=None,
+def remove_weak_edges(
+    edges,
+    matrix,
+    cut_threshold=LIMIAR_CORTE,
+    attach_threshold=LIMIAR_ANEXACAO,
 ):
-    """Executa o fluxo completo do modulo do integrante 4.
+    """Remove arestas fracas e retorna grafo final, comunidades e outliers.
 
-    Retorna um dicionario com:
-    - comunidades: grupos finais de IDs de feedbacks;
-    - outliers: feedbacks que nao se encaixaram em nenhum grupo;
-    - grafo_final: matriz da arvore apos cortes e anexacoes;
-    - arestas_removidas: ligacoes fracas removidas da AGM;
-    - comunidades_antes_do_tratamento: componentes logo apos o corte.
+    Segue o contrato do documento tecnico:
+    remove_weak_edges(edges, matrix, cut_threshold, attach_threshold)
+    -> tuple[dict, list[list[int]], list[int]]
     """
-    _validar_matriz_quadrada(matriz_original)
-    n_vertices = len(matriz_original)
+    _validate_square_matrix(matrix)
 
-    grafo_cortado, arestas_removidas = remover_arestas_fracas(
-        mst_edges,
-        n_vertices,
-        limiar_corte=limiar_corte,
-        quantidade_cortes=quantidade_cortes,
+    vertex_count = len(matrix)
+    sorted_edges = sorted((_normalize_edge(edge) for edge in edges), key=lambda item: item[2])
+    graph = _empty_graph(vertex_count)
+
+    for origin, destination, weight in sorted_edges:
+        if origin < 0 or destination < 0 or origin >= vertex_count or destination >= vertex_count:
+            raise ValueError("Aresta possui vertice fora do intervalo da matriz.")
+
+        if weight >= cut_threshold:
+            _add_edge(graph, origin, destination)
+
+    initial_communities = dfs_components(graph)
+    communities, outliers = _handle_single_vertex_communities(
+        initial_communities,
+        matrix,
+        graph,
+        attach_threshold,
     )
-    comunidades_iniciais = dfs_componentes(grafo_cortado)
-    comunidades, outliers, grafo_final = tratar_vertices_unitarios(
-        comunidades_iniciais,
-        matriz_original,
-        grafo_cortado,
-        limiar_anexacao=limiar_anexacao,
+
+    return graph, communities, outliers
+
+
+def removed_edges(edges, cut_threshold=LIMIAR_CORTE):
+    """Retorna as arestas removidas, em ordem crescente de peso."""
+    sorted_edges = sorted((_normalize_edge(edge) for edge in edges), key=lambda item: item[2])
+    return [edge for edge in sorted_edges if edge[2] < cut_threshold]
+
+
+def kept_edges(edges, cut_threshold=LIMIAR_CORTE):
+    """Retorna as arestas mantidas, em ordem crescente de peso."""
+    sorted_edges = sorted((_normalize_edge(edge) for edge in edges), key=lambda item: item[2])
+    return [edge for edge in sorted_edges if edge[2] >= cut_threshold]
+
+
+def detect_communities(
+    mst_edges,
+    matrix,
+    cut_threshold=LIMIAR_CORTE,
+    attach_threshold=LIMIAR_ANEXACAO,
+):
+    """Executa o fluxo completo do integrante 4 com nomes em ingles."""
+    graph, communities, outliers = remove_weak_edges(
+        mst_edges,
+        matrix,
+        cut_threshold,
+        attach_threshold,
     )
 
     return {
-        "comunidades": comunidades,
+        "communities": communities,
         "outliers": outliers,
-        "grafo_final": grafo_final,
-        "arestas_removidas": arestas_removidas,
-        "comunidades_antes_do_tratamento": comunidades_iniciais,
+        "final_graph": graph,
+        "removed_edges": removed_edges(mst_edges, cut_threshold),
+        "kept_edges": kept_edges(mst_edges, cut_threshold),
+        "components_before_singleton_handling": dfs_components(
+            _graph_after_cut(mst_edges, len(matrix), cut_threshold)
+        ),
     }
+
+
+def _graph_after_cut(edges, vertex_count, cut_threshold):
+    graph = _empty_graph(vertex_count)
+    for origin, destination, weight in sorted(
+        (_normalize_edge(edge) for edge in edges),
+        key=lambda item: item[2],
+    ):
+        if weight >= cut_threshold:
+            _add_edge(graph, origin, destination)
+    return graph
