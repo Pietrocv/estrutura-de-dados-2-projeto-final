@@ -2,6 +2,7 @@ from collections import deque
 
 
 LIMIAR_CORTE = 0.20
+LIMIAR_ANEXACAO = 0.20
 
 
 def _validate_square_matrix(matrix):
@@ -98,6 +99,70 @@ def bfs_components(graph):
     return communities
 
 
+def _best_community_for_vertex(vertex, communities, matrix):
+    best_community = None
+    best_vertex = None
+    best_weight = 0.0
+
+    for community in communities:
+        for candidate in community:
+            weight = float(matrix[vertex][candidate])
+            if weight > best_weight:
+                best_weight = weight
+                best_community = community
+                best_vertex = candidate
+
+    return best_community, best_vertex, best_weight
+
+
+def _handle_single_vertex_communities(communities, matrix, graph, attach_threshold):
+    working_communities = [list(community) for community in communities]
+    single_vertices = [community[0] for community in communities if len(community) == 1]
+    outliers = []
+
+    for vertex in single_vertices:
+        current_community = next(
+            (
+                community
+                for community in working_communities
+                if len(community) == 1 and community[0] == vertex
+            ),
+            None,
+        )
+
+        if current_community is None:
+            continue
+
+        candidate_communities = [
+            community for community in working_communities if community is not current_community
+        ]
+
+        if not candidate_communities:
+            outliers.append(vertex)
+            working_communities.remove(current_community)
+            continue
+
+        best_community, best_vertex, best_weight = _best_community_for_vertex(
+            vertex,
+            candidate_communities,
+            matrix,
+        )
+
+        if best_weight >= attach_threshold:
+            best_community.append(vertex)
+            _add_edge(graph, vertex, best_vertex)
+            working_communities.remove(current_community)
+        else:
+            outliers.append(vertex)
+            working_communities.remove(current_community)
+
+    final_communities = [sorted(community) for community in working_communities]
+    final_communities.sort(key=lambda community: (community[0], len(community)))
+    outliers.sort()
+
+    return final_communities, outliers
+
+
 def removed_edges(edges, cut_threshold=LIMIAR_CORTE):
     sorted_edges = sorted((_normalize_edge(edge) for edge in edges), key=lambda item: item[2])
     return [edge for edge in sorted_edges if edge[2] < cut_threshold]
@@ -123,14 +188,46 @@ def _graph_after_cut(edges, vertex_count, cut_threshold):
     return graph
 
 
-def remove_weak_edges(edges, matrix, cut_threshold=LIMIAR_CORTE):
+def remove_weak_edges(
+    edges,
+    matrix,
+    cut_threshold=LIMIAR_CORTE,
+    attach_threshold=LIMIAR_ANEXACAO,
+):
     _validate_square_matrix(matrix)
 
     graph = _graph_after_cut(edges, len(matrix), cut_threshold)
+    initial_communities = dfs_components(graph)
+    communities, outliers = _handle_single_vertex_communities(
+        initial_communities,
+        matrix,
+        graph,
+        attach_threshold,
+    )
+
+    return graph, communities, outliers
+
+
+def detect_communities(
+    mst_edges,
+    matrix,
+    cut_threshold=LIMIAR_CORTE,
+    attach_threshold=LIMIAR_ANEXACAO,
+):
+    graph, communities, outliers = remove_weak_edges(
+        mst_edges,
+        matrix,
+        cut_threshold,
+        attach_threshold,
+    )
 
     return {
+        "communities": communities,
+        "outliers": outliers,
         "final_graph": graph,
-        "removed_edges": removed_edges(edges, cut_threshold),
-        "kept_edges": kept_edges(edges, cut_threshold),
-        "communities": dfs_components(graph),
+        "removed_edges": removed_edges(mst_edges, cut_threshold),
+        "kept_edges": kept_edges(mst_edges, cut_threshold),
+        "components_before_singleton_handling": dfs_components(
+            _graph_after_cut(mst_edges, len(matrix), cut_threshold)
+        ),
     }
