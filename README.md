@@ -214,8 +214,7 @@ spacy>=3.0.0
 ### 1. Clone o repositório
 
 ```bash
-git clone https://github.com/<seu-usuario>/projeto-pln-grafos.git
-cd projeto-pln-grafos
+git clone https://github.com/<seu-usuario>/estrutura-de-dados-2-projeto-final.git
 ```
 
 ### 2. Crie e ative um ambiente virtual
@@ -331,23 +330,6 @@ Triângulos encontrados: 1
   Relatório salvo em: relatorio_resultados.txt
 ============================================================
 ```
-
----
-
-## Checklist de Entrega
-
-- [ ] Código no GitHub atualizado até o prazo definido pelo professor
-- [ ] Nenhuma biblioteca de grafos ou similaridade pronta foi utilizada
-- [ ] `spaCy` utilizado exclusivamente para PLN
-- [ ] Modelo `pt_core_news_sm` listado nas instruções de execução
-- [ ] `requirements.txt` contém apenas `spacy`
-- [ ] README explica como executar o projeto do zero
-- [ ] Exemplos de entrada e saída estão documentados
-- [ ] Cada integrante consegue explicar sua parte e como ela se conecta às demais
-- [ ] Slides incluem: problema, modelagem do grafo, pipeline, exemplos e análise
-- [ ] A apresentação demonstra pelo menos uma comunidade real com palavras-chave e tópico nomeado
-- [ ] Uso de LLM citado no slide obrigatório (se aplicável)
-- [ ] Teste final de execução realizado do zero seguindo este README
 
 ---
 
