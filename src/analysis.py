@@ -1,3 +1,6 @@
+import math
+
+
 class ElementoHash:
     def __init__(self, chave, valor):
         self.chave = chave
@@ -52,23 +55,117 @@ def extrair_palavras_frequentes(comunidade, conjuntos_lemas, top_k=5):
     # Retorna apenas a quantidade pedida
     return pares_ordenados[:top_k]
 
-def nomear_topicos(comunidades, conjuntos_lemas):
-    # Mapeia cada comunidade para um dicionário contendo os IDs dos feedbacks e uma string com as palavras-chave mais frequentes que dão nome ao tópico.
+def _frequencias_da_comunidade(comunidade, conjuntos_lemas):
+    tabela = HashTable()
+
+    for id_feedback in comunidade:
+        for lema in conjuntos_lemas.get(id_feedback, set()):
+            tabela.incrementar(lema)
+
+    return tabela.itens()
+
+
+def _frequencia_entre_comunidades(comunidades, conjuntos_lemas):
+    frequencia = {}
+
+    for comunidade in comunidades:
+        termos_da_comunidade = set()
+
+        for id_feedback in comunidade:
+            termos_da_comunidade.update(conjuntos_lemas.get(id_feedback, set()))
+
+        for termo in termos_da_comunidade:
+            frequencia[termo] = frequencia.get(termo, 0) + 1
+
+    return frequencia
+
+
+def extrair_termos_representativos(
+    comunidade,
+    conjuntos_lemas,
+    frequencia_entre_comunidades,
+    total_comunidades,
+    top_k=3,
+):
+    """
+    Seleciona termos frequentes dentro da comunidade e raros nas demais.
+    """
+    if top_k <= 0 or not comunidade:
+        return []
+
+    termos_pontuados = []
+
+    for termo, frequencia_local in _frequencias_da_comunidade(
+        comunidade,
+        conjuntos_lemas,
+    ):
+        comunidades_com_termo = frequencia_entre_comunidades.get(termo, 0)
+        raridade = math.log(
+            (total_comunidades + 1) / (comunidades_com_termo + 1)
+        ) + 1
+        proporcao_local = frequencia_local / len(comunidade)
+
+        termos_pontuados.append(
+            {
+                "termo": termo,
+                "frequencia": frequencia_local,
+                "pontuacao": proporcao_local * raridade,
+            }
+        )
+
+    termos_pontuados.sort(
+        key=lambda item: (
+            -item["pontuacao"],
+            -item["frequencia"],
+            item["termo"],
+        )
+    )
+
+    return termos_pontuados[:top_k]
+
+
+def _formatar_nome_topico(termos_representativos):
+    if not termos_representativos:
+        return "Tópico não classificado"
+
+    termos = [item["termo"].capitalize() for item in termos_representativos]
+    return " / ".join(termos)
+
+
+def nomear_topicos(comunidades, conjuntos_lemas, top_k=3):
+    """
+    Nomeia comunidades já detectadas sem interferir na formação dos grupos.
+
+    O nome é produzido diretamente a partir dos lemas mais representativos,
+    sem catálogo prévio de assuntos.
+    """
     dicionario_topicos = {}
-    
+    frequencia_global = _frequencia_entre_comunidades(
+        comunidades,
+        conjuntos_lemas,
+    )
+    total_comunidades = len(comunidades)
+
     for i, comunidade in enumerate(comunidades):
-        # Pega as 3 palavras mais frequentes para dar nome ao tópico (top_k=3)
-        top_termos = extrair_palavras_frequentes(comunidade, conjuntos_lemas, top_k=3)
-        
-        # Junta os termos com uma vírgula. Ex: "atrasar, entrega, prazo"
-        nome_topico = ", ".join([termo[0] for termo in top_termos])
-        
-        # Guarda a estrutura de dados da comunidade rotulada
+        termos_representativos = extrair_termos_representativos(
+            comunidade,
+            conjuntos_lemas,
+            frequencia_global,
+            total_comunidades,
+            top_k=top_k,
+        )
+
         dicionario_topicos[f"Tópico_{i+1}"] = {
             "feedbacks_ids": comunidade,
-            "palavras_chave": nome_topico if nome_topico else "Tópico não classificado"
+            "nome_automatico": _formatar_nome_topico(
+                termos_representativos
+            ),
+            "palavras_chave": [
+                item["termo"] for item in termos_representativos
+            ],
+            "termos_representativos": termos_representativos,
         }
-        
+
     return dicionario_topicos
 
 def detectar_triangulos(adj_list):
@@ -92,12 +189,12 @@ def calcular_metricas_finais(comunidades, dicionario_topicos, total_feedbacks, d
     print("\n" + "="*50)
     print("RELATÓRIO FINAL E RESUMO ESTATÍSTICO DO GRAFO")
     print("="*50)
-    print(f"👉 Número total de comunidades: {len(comunidades)}")
-    print(f"👉 Densidade calculada do grafo: {densidade:.4f}")
-    print(f"👉 Grau médio do grafo: {grau_medio:.2f}")
-    print(f"👉 Limiar de arestas relevantes utilizado: {limiar}")
-    print(f"👉 Triângulos/Cliques K3 detetados: {len(triangulos)}")
-    print(f"👉 Quantidade de Outliers listados: {len(outliers)} (IDs: {outliers})")
+    print(f"Número total de comunidades: {len(comunidades)}")
+    print(f"Densidade calculada do grafo: {densidade:.4f}")
+    print(f"Grau médio do grafo: {grau_medio:.2f}")
+    print(f"Limiar de arestas relevantes utilizado: {limiar}")
+    print(f"Triângulos/Cliques K3 detetados: {len(triangulos)}")
+    print(f"Quantidade de Outliers listados: {len(outliers)} (IDs: {outliers})")
     print("-" * 50)
     
     for nome_topico, dados in dicionario_topicos.items():
@@ -105,6 +202,10 @@ def calcular_metricas_finais(comunidades, dicionario_topicos, total_feedbacks, d
         # Calcula a porcentagem de representatividade do tópico (Tamanho de cada comunidade)
         porcentagem = (qtd_feedbacks / total_feedbacks) * 100 if total_feedbacks > 0 else 0
         
-        print(f"\n📌 {nome_topico}: [{dados['palavras_chave']}]")
+        print(f"\n{nome_topico} — {dados['nome_automatico']}")
+        print(
+            "   -> Palavras-chave: "
+            + ", ".join(dados["palavras_chave"])
+        )
         print(f"   -> Tamanho da comunidade: {qtd_feedbacks} feedbacks")
         print(f"   -> Representa {porcentagem:.2f}% do total analisado.")
