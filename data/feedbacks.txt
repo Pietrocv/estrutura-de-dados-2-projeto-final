@@ -1,131 +1,151 @@
 feedback
-A comunicacao com a equipe da Empresa Junior foi clara desde a primeira reuniao.
-Recebi atualizacoes frequentes sobre o andamento do projeto e isso passou confianca.
-A equipe explicou bem cada etapa antes de iniciar a entrega.
-Os canais de contato foram simples e funcionaram durante todo o projeto.
-As reunioes semanais ajudaram a alinhar expectativas com a Empresa Junior.
-Senti falta de respostas mais rapidas em alguns momentos da comunicacao.
-A comunicacao por e-mail foi organizada e objetiva.
-O grupo de mensagens facilitou o contato com os membros responsaveis.
-A equipe sempre confirmava o entendimento antes de executar uma mudanca.
-As duvidas foram respondidas com linguagem acessivel e sem excesso de termos tecnicos.
-Houve falhas de comunicacao quando o responsavel principal ficou indisponivel.
-A Empresa Junior manteve um bom alinhamento entre cliente e equipe tecnica.
-Os prazos de resposta no atendimento inicial poderiam ser menores.
-A apresentacao das propostas foi clara e bem estruturada.
-Gostei da transparencia ao informar riscos e limitacoes do projeto.
-A equipe comunicou mudancas de escopo de forma profissional.
-As mensagens eram educadas, mas algumas vezes demoravam a chegar.
-O acompanhamento do projeto foi melhor quando as reunioes ficaram mais frequentes.
-A comunicacao entre os membros parecia bem integrada.
-A falta de um resumo apos cada reuniao dificultou acompanhar algumas decisoes.
-O projeto atrasou alguns dias, mas a equipe avisou com antecedencia.
-O prazo combinado foi cumprido e a entrega ocorreu na data prevista.
-Houve atraso na entrega final sem muita explicacao.
-A equipe conseguiu recuperar parte do atraso com um plano de acao.
-Os marcos intermediarios ajudaram a controlar melhor o cronograma.
-Algumas etapas demoraram mais do que o estimado inicialmente.
-O cronograma apresentado era realista e foi seguido com disciplina.
-O prazo de revisao poderia ter sido mais bem planejado.
-A entrega parcial chegou no prazo e permitiu testar antes do fechamento.
-O atraso no inicio do projeto impactou as etapas seguintes.
-A Empresa Junior foi honesta ao renegociar o prazo de entrega.
-O acompanhamento de prazos foi feito de maneira organizada.
-Recebi o material final antes do prazo combinado.
-O projeto teve pequenos atrasos, mas nada comprometeu o resultado.
-A definicao de datas para cada etapa trouxe seguranca ao processo.
-Faltou previsibilidade sobre quando as correcoes seriam entregues.
-O time cumpriu bem os prazos das reunioes e das apresentacoes.
-O prazo foi curto, mas a equipe conseguiu entregar com qualidade.
-O cronograma ficou apertado porque o levantamento inicial demorou muito.
-As entregas intermediarias reduziram o risco de atraso no final.
-A qualidade tecnica da solucao entregue foi muito boa.
-O resultado final mostrou cuidado com detalhes tecnicos.
-A implementacao ficou organizada e facil de entender.
-A equipe demonstrou dominio tecnico durante as apresentacoes.
-Alguns pontos tecnicos precisaram de retrabalho apos os testes.
-O material entregue parecia bem revisado e consistente.
-A documentacao tecnica ajudou bastante na continuidade do projeto.
-A solucao atendeu aos requisitos principais definidos no inicio.
-Os arquivos foram entregues com uma estrutura clara.
-A qualidade tecnica ficou acima do esperado para uma Empresa Junior.
-Houve pequenas inconsistencias no resultado final.
-O projeto poderia ter passado por mais testes antes da entrega.
-A equipe aplicou boas praticas e explicou as escolhas tecnicas.
-A solucao ficou funcional, mas ainda precisa de refinamentos.
-O nivel tecnico dos membros passou confianca ao cliente.
-Os criterios de aceitacao foram respeitados na entrega.
-A revisao tecnica final melhorou bastante a qualidade do produto.
-Algumas funcionalidades apresentaram erros simples de validacao.
-O codigo entregue estava separado por modulos e bem organizado.
-A qualidade da analise inicial ajudou a evitar problemas na implementacao.
-O preco cobrado foi justo pelo escopo entregue.
-O orcamento ficou adequado para uma empresa de pequeno porte.
-A proposta financeira foi bem detalhada e transparente.
-O custo-beneficio da Empresa Junior foi muito positivo.
-O valor ficou abaixo de outras opcoes do mercado.
-O preco era acessivel, mas algumas entregas poderiam ser mais completas.
-O orcamento explicou bem o que estava incluso no projeto.
-Gostei da flexibilidade para ajustar o escopo ao limite de verba.
-O valor final ficou dentro do combinado inicialmente.
-A cobranca foi clara e nao houve custos inesperados.
-O preco foi competitivo em relacao a fornecedores tradicionais.
-O orcamento poderia separar melhor as etapas do projeto.
-A Empresa Junior ofereceu uma solucao viavel para um budget reduzido.
-O investimento valeu a pena pelo aprendizado e pela entrega.
-O custo foi razoavel, mas o prazo poderia justificar desconto.
-A proposta teve bom equilibrio entre preco e qualidade.
-O valor cobrado foi coerente com a complexidade do trabalho.
-Faltou uma explicacao mais detalhada sobre a forma de pagamento.
-O orcamento inicial ajudou a decidir rapidamente pela contratacao.
-O preco acessivel foi um fator importante para escolher a Empresa Junior.
-O suporte apos a entrega foi atencioso e resolveu as principais duvidas.
-A equipe continuou disponivel mesmo depois do encerramento formal.
-Recebi orientacoes uteis para usar o material entregue.
-O pos-entrega teve acompanhamento suficiente para validar a solucao.
-As correcoes solicitadas depois da entrega foram feitas rapidamente.
-O suporte pos-entrega demorou mais do que o esperado.
-A Empresa Junior explicou como manter o projeto depois da entrega.
-O atendimento apos a finalizacao passou seguranca.
-Faltou um guia mais completo para uso do produto entregue.
-As duvidas pos-entrega foram respondidas com clareza.
-A equipe ofereceu uma reuniao final para explicar todos os arquivos.
-O suporte foi cordial, mas poderia ter sido mais proativo.
-As pequenas correcoes foram tratadas sem burocracia.
-O periodo de garantia ajudou a identificar ajustes importantes.
-O acompanhamento final mostrou compromisso com o cliente.
-Depois da entrega, a comunicacao ficou um pouco mais lenta.
-O treinamento final facilitou a adocao da solucao pela equipe.
-O suporte tecnico apos a entrega resolveu problemas de configuracao.
-A Empresa Junior manteve abertura para feedbacks e melhorias.
-O pos-projeto foi importante para consolidar a entrega.
-A comunicacao foi clara, mas os prazos de resposta poderiam melhorar.
-O prazo atrasou um pouco, embora a qualidade tecnica tenha sido boa.
-O preco foi justo e o suporte pos-entrega agregou valor.
-A equipe comunicou bem os riscos, mas a entrega final atrasou.
-O orcamento era acessivel e a solucao ficou tecnicamente consistente.
-Gostei da qualidade tecnica, porem senti falta de mais acompanhamento depois.
-A Empresa Junior entregou no prazo e manteve contato constante.
-O projeto teve bom custo-beneficio, apesar de pequenos erros tecnicos.
-A comunicacao durante as revisoes ajudou a corrigir problemas de qualidade.
-O suporte final compensou algumas falhas de planejamento de prazo.
-O cronograma foi bem acompanhado e o preco ficou dentro do esperado.
-A solucao funcionou bem, mas o manual de uso poderia ser mais completo.
-O atendimento foi educado e o orcamento foi facil de entender.
-A entrega atrasou, mas a equipe explicou os motivos com transparencia.
-O preco baixo foi positivo, mas a qualidade tecnica variou entre etapas.
-O suporte pos-entrega foi bom e corrigiu falhas pequenas rapidamente.
-A comunicacao inicial foi excelente, mas caiu depois da entrega.
-O projeto ficou organizado, com boa documentacao e custo adequado.
-Houve alinhamento constante sobre prazo, escopo e qualidade.
-A experiencia geral foi positiva para testar a Empresa Junior em novos projetos.
-O cafe servido na reuniao estava frio e isso chamou atencao.
-A sala de apresentacao tinha pouca iluminacao natural.
-O estacionamento do campus estava cheio no dia da visita.
-A identidade visual dos slides usava muitas cores diferentes.
-O formulario de avaliacao era longo para preencher no celular.
-O horario da reuniao coincidiu com uma prova importante da universidade.
-A trilha sonora do video institucional estava alta demais.
-O cracha dos membros era pequeno e dificil de ler.
-O elevador do predio demorou bastante antes da reuniao.
-A mesa da sala tinha poucos pontos de tomada disponiveis.
+A comunicacao teve retorno claro nas mensagens e ajudou no alinhamento da reuniao. comunicacao retorno reuniao.
+O alinhamento da pauta deixou o combinado mais claro para todos os participantes. mensagem combinado alinhamento.
+As mensagens de retorno registraram expectativas e reduziram duvidas da reuniao. pauta retorno registro.
+Faltou clareza em alguns combinados, mas o registro das mensagens ajudou. mensagem clareza combinado.
+A comunicacao teve retorno claro nas mensagens e ajudou no alinhamento da reuniao. pauta comunicacao reuniao.
+O alinhamento da pauta deixou o combinado mais claro para todos os participantes. expectativa clareza alinhamento.
+As mensagens de retorno registraram expectativas e reduziram duvidas da reuniao. pauta registro comunicacao.
+Faltou clareza em alguns combinados, mas o registro das mensagens ajudou. expectativa mensagem combinado.
+A comunicacao teve retorno claro nas mensagens e ajudou no alinhamento da reuniao. retorno registro reuniao.
+O alinhamento da pauta deixou o combinado mais claro para todos os participantes. expectativa alinhamento mensagem.
+As mensagens de retorno registraram expectativas e reduziram duvidas da reuniao. retorno pauta comunicacao.
+Faltou clareza em alguns combinados, mas o registro das mensagens ajudou. clareza alinhamento combinado.
+A comunicacao teve retorno claro nas mensagens e ajudou no alinhamento da reuniao. retorno reuniao pauta.
+O alinhamento da pauta deixou o combinado mais claro para todos os participantes. clareza expectativa mensagem.
+As mensagens de retorno registraram expectativas e reduziram duvidas da reuniao. registro reuniao comunicacao.
+Faltou clareza em alguns combinados, mas o registro das mensagens ajudou. clareza combinado expectativa.
+O prazo da entrega ficou claro no cronograma com etapas e marcos definidos. prazo entrega atraso.
+A previsao de cada data ajudou no planejamento e reduziu risco de atraso. etapa planejamento cronograma.
+Algumas etapas tiveram atraso, mas a revisao do cronograma foi comunicada. previsao entrega data.
+Os marcos de entrega facilitaram acompanhar prazo, etapa e planejamento. etapa marco planejamento.
+O prazo da entrega ficou claro no cronograma com etapas e marcos definidos. previsao prazo atraso.
+A previsao de cada data ajudou no planejamento e reduziu risco de atraso. revisao marco cronograma.
+Algumas etapas tiveram atraso, mas a revisao do cronograma foi comunicada. previsao data prazo.
+Os marcos de entrega facilitaram acompanhar prazo, etapa e planejamento. revisao etapa planejamento.
+O prazo da entrega ficou claro no cronograma com etapas e marcos definidos. entrega data atraso.
+A previsao de cada data ajudou no planejamento e reduziu risco de atraso. revisao cronograma etapa.
+Algumas etapas tiveram atraso, mas a revisao do cronograma foi comunicada. entrega previsao prazo.
+Os marcos de entrega facilitaram acompanhar prazo, etapa e planejamento. marco cronograma planejamento.
+O prazo da entrega ficou claro no cronograma com etapas e marcos definidos. entrega atraso previsao.
+A previsao de cada data ajudou no planejamento e reduziu risco de atraso. marco revisao etapa.
+Algumas etapas tiveram atraso, mas a revisao do cronograma foi comunicada. data atraso prazo.
+Os marcos de entrega facilitaram acompanhar prazo, etapa e planejamento. marco planejamento revisao.
+A qualidade tecnica apareceu no codigo organizado, nos testes e na validacao. qualidade codigo validacao.
+A validacao dos requisitos reduziu erro e melhorou a consistencia dos modulos. teste modulo tecnico.
+O codigo ficou facil de manter, mas alguns testes poderiam ser ampliados. requisito codigo manutencao.
+A revisao tecnica encontrou erro pequeno antes da entrega e melhorou a qualidade. teste erro modulo.
+A qualidade tecnica apareceu no codigo organizado, nos testes e na validacao. requisito qualidade validacao.
+A validacao dos requisitos reduziu erro e melhorou a consistencia dos modulos. consistencia erro tecnico.
+O codigo ficou facil de manter, mas alguns testes poderiam ser ampliados. requisito manutencao qualidade.
+A revisao tecnica encontrou erro pequeno antes da entrega e melhorou a qualidade. consistencia teste modulo.
+A qualidade tecnica apareceu no codigo organizado, nos testes e na validacao. codigo manutencao validacao.
+A validacao dos requisitos reduziu erro e melhorou a consistencia dos modulos. consistencia tecnico teste.
+O codigo ficou facil de manter, mas alguns testes poderiam ser ampliados. codigo requisito qualidade.
+A revisao tecnica encontrou erro pequeno antes da entrega e melhorou a qualidade. erro tecnico modulo.
+A qualidade tecnica apareceu no codigo organizado, nos testes e na validacao. codigo validacao requisito.
+A validacao dos requisitos reduziu erro e melhorou a consistencia dos modulos. erro consistencia teste.
+O codigo ficou facil de manter, mas alguns testes poderiam ser ampliados. manutencao validacao qualidade.
+A revisao tecnica encontrou erro pequeno antes da entrega e melhorou a qualidade. erro modulo consistencia.
+O preco ficou coerente com o escopo, o valor entregue e o investimento. preco custo investimento.
+O orcamento detalhado facilitou a negociacao da proposta e do pagamento. valor budget orcamento.
+O custo-beneficio foi bom para o budget disponivel no inicio do escopo. pagamento custo negociacao.
+Faltou separar melhor custo, valor e itens incluidos na proposta. valor proposta budget.
+O preco ficou coerente com o escopo, o valor entregue e o investimento. pagamento preco investimento.
+O orcamento detalhado facilitou a negociacao da proposta e do pagamento. escopo proposta orcamento.
+O custo-beneficio foi bom para o budget disponivel no inicio do escopo. pagamento negociacao preco.
+Faltou separar melhor custo, valor e itens incluidos na proposta. escopo valor budget.
+O preco ficou coerente com o escopo, o valor entregue e o investimento. custo negociacao investimento.
+O orcamento detalhado facilitou a negociacao da proposta e do pagamento. escopo orcamento valor.
+O custo-beneficio foi bom para o budget disponivel no inicio do escopo. custo pagamento preco.
+Faltou separar melhor custo, valor e itens incluidos na proposta. proposta orcamento budget.
+O preco ficou coerente com o escopo, o valor entregue e o investimento. custo investimento pagamento.
+O orcamento detalhado facilitou a negociacao da proposta e do pagamento. proposta escopo valor.
+O suporte posentrega respondeu duvidas de uso com boa orientacao. suporte duvida treinamento.
+As correcoes e ajustes foram tratados dentro do periodo de garantia. correcao ajuste posentrega.
+O treinamento e o manual facilitaram o uso da solucao depois da entrega. uso duvida garantia.
+Faltou orientacao mais detalhada para reduzir duvida recorrente no posentrega. correcao manual ajuste.
+O suporte posentrega respondeu duvidas de uso com boa orientacao. uso suporte treinamento.
+As correcoes e ajustes foram tratados dentro do periodo de garantia. orientacao manual posentrega.
+O treinamento e o manual facilitaram o uso da solucao depois da entrega. uso garantia suporte.
+Faltou orientacao mais detalhada para reduzir duvida recorrente no posentrega. orientacao correcao ajuste.
+O suporte posentrega respondeu duvidas de uso com boa orientacao. duvida garantia treinamento.
+As correcoes e ajustes foram tratados dentro do periodo de garantia. orientacao posentrega correcao.
+O treinamento e o manual facilitaram o uso da solucao depois da entrega. duvida uso suporte.
+Faltou orientacao mais detalhada para reduzir duvida recorrente no posentrega. manual posentrega ajuste.
+O suporte posentrega respondeu duvidas de uso com boa orientacao. duvida treinamento uso.
+As correcoes e ajustes foram tratados dentro do periodo de garantia. manual orientacao correcao.
+O levantamento de requisitos identificou necessidade, processo e fluxo principal. requisito diagnostico necessidade.
+A entrevista de diagnostico ajudou a definir objetivo, escopo e regras. entrevista regra levantamento.
+Algumas necessidades apareceram tarde por falta de levantamento detalhado. fluxo diagnostico escopo.
+O diagnostico do processo deixou os requisitos mais claros para o escopo. entrevista processo regra.
+O levantamento de requisitos identificou necessidade, processo e fluxo principal. fluxo requisito necessidade.
+A entrevista de diagnostico ajudou a definir objetivo, escopo e regras. objetivo processo levantamento.
+Algumas necessidades apareceram tarde por falta de levantamento detalhado. fluxo escopo requisito.
+O diagnostico do processo deixou os requisitos mais claros para o escopo. objetivo entrevista regra.
+O levantamento de requisitos identificou necessidade, processo e fluxo principal. diagnostico escopo necessidade.
+A entrevista de diagnostico ajudou a definir objetivo, escopo e regras. objetivo levantamento entrevista.
+Algumas necessidades apareceram tarde por falta de levantamento detalhado. diagnostico fluxo requisito.
+O diagnostico do processo deixou os requisitos mais claros para o escopo. processo levantamento regra.
+O levantamento de requisitos identificou necessidade, processo e fluxo principal. diagnostico necessidade fluxo.
+A entrevista de diagnostico ajudou a definir objetivo, escopo e regras. processo objetivo entrevista.
+A documentacao explicou o material, o relatorio e os arquivos entregues. documentacao relatorio material.
+A apresentacao usou slide, grafico e resumo para mostrar os resultados. slide resumo apresentacao.
+O relatorio final poderia detalhar melhor a explicacao das limitacoes. grafico relatorio arquivo.
+O visual dos slides ajudou a organizar material, grafico e apresentacao. slide explicacao resumo.
+A documentacao explicou o material, o relatorio e os arquivos entregues. grafico documentacao material.
+A apresentacao usou slide, grafico e resumo para mostrar os resultados. visual explicacao apresentacao.
+O relatorio final poderia detalhar melhor a explicacao das limitacoes. grafico arquivo documentacao.
+O visual dos slides ajudou a organizar material, grafico e apresentacao. visual slide resumo.
+A documentacao explicou o material, o relatorio e os arquivos entregues. relatorio arquivo material.
+A apresentacao usou slide, grafico e resumo para mostrar os resultados. visual apresentacao slide.
+O relatorio final poderia detalhar melhor a explicacao das limitacoes. relatorio grafico documentacao.
+O visual dos slides ajudou a organizar material, grafico e apresentacao. explicacao apresentacao resumo.
+A documentacao explicou o material, o relatorio e os arquivos entregues. relatorio material grafico.
+A apresentacao usou slide, grafico e resumo para mostrar os resultados. explicacao visual slide.
+O atendimento transmitiu confianca, profissionalismo e boa experiencia. atendimento confianca relacao.
+A relacao com o cliente teve respeito, empatia e postura profissional. profissionalismo respeito experiencia.
+A experiencia gerou satisfacao e aumentou a credibilidade da equipe. empatia confianca postura.
+Faltou mais proatividade no atendimento para melhorar a relacao. profissionalismo satisfacao respeito.
+O atendimento transmitiu confianca, profissionalismo e boa experiencia. empatia atendimento relacao.
+A relacao com o cliente teve respeito, empatia e postura profissional. credibilidade satisfacao experiencia.
+A experiencia gerou satisfacao e aumentou a credibilidade da equipe. empatia postura atendimento.
+Faltou mais proatividade no atendimento para melhorar a relacao. credibilidade profissionalismo respeito.
+O atendimento transmitiu confianca, profissionalismo e boa experiencia. confianca postura relacao.
+A relacao com o cliente teve respeito, empatia e postura profissional. credibilidade experiencia profissionalismo.
+A experiencia gerou satisfacao e aumentou a credibilidade da equipe. confianca empatia atendimento.
+Faltou mais proatividade no atendimento para melhorar a relacao. satisfacao experiencia respeito.
+O atendimento transmitiu confianca, profissionalismo e boa experiencia. confianca relacao empatia.
+A relacao com o cliente teve respeito, empatia e postura profissional. satisfacao credibilidade profissionalismo.
+A sala tinha pouca tomada e a internet do ambiente oscilou durante a reuniao. sala campus internet.
+O estacionamento do campus estava cheio e dificultou chegar na recepcao. estacionamento celular ambiente.
+O formulario no celular ficou longo e cansativo para preencher. formulario campus recepcao.
+A iluminacao do ambiente poderia melhorar para a apresentacao na sala. estacionamento tomada celular.
+A sala tinha pouca tomada e a internet do ambiente oscilou durante a reuniao. formulario sala internet.
+O estacionamento do campus estava cheio e dificultou chegar na recepcao. iluminacao tomada ambiente.
+O formulario no celular ficou longo e cansativo para preencher. formulario recepcao sala.
+A iluminacao do ambiente poderia melhorar para a apresentacao na sala. iluminacao estacionamento celular.
+A sala tinha pouca tomada e a internet do ambiente oscilou durante a reuniao. campus recepcao internet.
+O estacionamento do campus estava cheio e dificultou chegar na recepcao. iluminacao ambiente estacionamento.
+O formulario no celular ficou longo e cansativo para preencher. campus formulario sala.
+A iluminacao do ambiente poderia melhorar para a apresentacao na sala. tomada ambiente celular.
+A sala tinha pouca tomada e a internet do ambiente oscilou durante a reuniao. campus internet formulario.
+O resultado trouxe indicador, evidencia e conclusao para apoiar decisao. resultado indicador evidencia.
+A comparacao de desempenho mostrou impacto positivo na meta definida. meta melhoria impacto.
+A melhoria ficou visivel nos indicadores e fortaleceu a conclusao final. comparacao indicador desempenho.
+Faltou apresentar mais evidencia para justificar a decisao sobre resultado. meta decisao melhoria.
+O resultado trouxe indicador, evidencia e conclusao para apoiar decisao. comparacao resultado evidencia.
+A comparacao de desempenho mostrou impacto positivo na meta definida. conclusao decisao impacto.
+A melhoria ficou visivel nos indicadores e fortaleceu a conclusao final. comparacao desempenho resultado.
+Faltou apresentar mais evidencia para justificar a decisao sobre resultado. conclusao meta melhoria.
+O resultado trouxe indicador, evidencia e conclusao para apoiar decisao. indicador desempenho evidencia.
+A comparacao de desempenho mostrou impacto positivo na meta definida. conclusao impacto meta.
+A melhoria ficou visivel nos indicadores e fortaleceu a conclusao final. indicador comparacao resultado.
+Faltou apresentar mais evidencia para justificar a decisao sobre resultado. decisao impacto melhoria.
+O resultado trouxe indicador, evidencia e conclusao para apoiar decisao. indicador evidencia comparacao.
+A comparacao de desempenho mostrou impacto positivo na meta definida. decisao conclusao meta.
+A melhoria ficou visivel nos indicadores e fortaleceu a conclusao final. desempenho evidencia resultado.
+Faltou apresentar mais evidencia para justificar a decisao sobre resultado. decisao melhoria conclusao.
+O resultado trouxe indicador, evidencia e conclusao para apoiar decisao. desempenho indicador comparacao.
+A comparacao de desempenho mostrou impacto positivo na meta definida. impacto melhoria meta.
+A melhoria ficou visivel nos indicadores e fortaleceu a conclusao final. desempenho resultado indicador.

@@ -83,9 +83,10 @@ def detectar_triangulos(adj_list):
                         triangulos.add(tuple(sorted([u, v, w])))
     return list(triangulos)
 
-def calcular_metricas_finais(comunidades, dicionario_topicos, total_feedbacks, densidade, grau_medio, limiar, adj_list):
-    # Identifica os outliers (comunidades de tamanho igual a 1)
-    outliers = [c[0] for c in comunidades if len(c) == 1]
+def calcular_metricas_finais(comunidades, dicionario_topicos, total_feedbacks, densidade, grau_medio, limiar, adj_list, outliers=None):
+    if outliers is None:
+        outliers = []
+
     triangulos = detectar_triangulos(adj_list)
     
     print("\n" + "="*50)
