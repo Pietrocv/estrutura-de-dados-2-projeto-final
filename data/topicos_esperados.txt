@@ -1,0 +1,11 @@
+topico_esperado;quantidade;palavras_chave
+Comunicacao e alinhamento;16;comunicacao, alinhamento, retorno, mensagem, reuniao, clareza, pauta, combinado, registro, expectativa
+Prazos e cronograma;16;prazo, cronograma, entrega, etapa, atraso, marco, previsao, planejamento, data, revisao
+Qualidade tecnica e testes;16;qualidade, tecnico, codigo, teste, validacao, erro, requisito, modulo, manutencao, consistencia
+Preco e orcamento;14;preco, orcamento, custo, valor, investimento, proposta, pagamento, budget, negociacao, escopo
+Suporte pos-entrega;14;suporte, posentrega, duvida, correcao, treinamento, manual, uso, ajuste, garantia, orientacao
+Levantamento de requisitos;14;requisito, levantamento, diagnostico, entrevista, necessidade, processo, fluxo, regra, escopo, objetivo
+Documentacao e apresentacao;14;documentacao, apresentacao, relatorio, slide, material, explicacao, grafico, resumo, arquivo, visual
+Atendimento e experiencia;14;atendimento, experiencia, confianca, profissionalismo, relacao, satisfacao, empatia, respeito, postura, credibilidade
+Infraestrutura e ambiente;13;sala, ambiente, campus, estacionamento, internet, tomada, formulario, celular, recepcao, iluminacao
+Impacto e resultados;19;resultado, impacto, indicador, meta, evidencia, decisao, comparacao, melhoria, desempenho, conclusao

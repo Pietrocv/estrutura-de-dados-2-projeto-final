@@ -11,6 +11,17 @@ CUSTOM_STOPWORDS = {
     "bom",
     "durante",
     "muito",
+    "principal",
+    "recorrente",
+    "junto",
+    "relato",
+    "percepcao",
+    "combina",
+    "envolve",
+    "foco",
+    "aparecer",
+    "comentario",
+    "ponto",
 }
 
 # Carregamento do modelo spaCy para português. O modelo "pt_core_news_sm"
