@@ -31,3 +31,23 @@ class HashTable:
             for elemento in bucket:
                 resultado.append((elemento.chave, elemento.valor))
         return resultado
+    
+def extrair_palavras_frequentes(comunidade, conjuntos_lemas, top_k=5):
+    # Conta a frequência dos lemas de uma comunidade usando a HashTable.
+    tabela = HashTable()
+    
+    # Percorre cada ID de feedback pertencente à comunidade
+    for id_feedback in comunidade:
+        # Verifica se o ID do feedback existe no dicionário global de lemas
+        if id_feedback in conjuntos_lemas:
+            for lema in conjuntos_lemas[id_feedback]:
+                tabela.incrementar(lema)
+                
+    # Obtém os pares armazenados na HashTable
+    pares = tabela.itens()
+    
+    # Ordena os pares por frequência de forma decrescente
+    pares_ordenados = sorted(pares, key=lambda x: x[1], reverse=True)
+    
+    # Retorna apenas a quantidade pedida
+    return pares_ordenados[:top_k]
