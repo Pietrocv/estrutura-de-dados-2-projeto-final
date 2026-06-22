@@ -2,6 +2,17 @@ import unicodedata
 import string       
 import spacy        
 
+CUSTOM_STOPWORDS = {
+    "empresa",
+    "equipe",
+    "projeto",
+    "bem",
+    "boa",
+    "bom",
+    "durante",
+    "muito",
+}
+
 # Carregamento do modelo spaCy para português. O modelo "pt_core_news_sm"
 try:
     _NLP = spacy.load("pt_core_news_sm")
@@ -115,6 +126,9 @@ def _preprocess_single_feedback(feedback: str) -> set[str]:
 
         # Limpeza final de pontuação residual no lema (caso a lematização introduza caracteres indesejados)
         lema = lema.strip(string.punctuation)
+
+        if lema in CUSTOM_STOPWORDS:
+            continue
 
         # Validação final e adição ao conjunto
         if lema and len(lema) >= 3 and not lema.isdigit():

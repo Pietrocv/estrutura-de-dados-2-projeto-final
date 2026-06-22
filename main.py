@@ -32,6 +32,18 @@ def imprimir_resumo_etapa(nome, valor):
     print(f"[OK] {nome}: {valor}")
 
 
+def construir_grafo_relevante(matriz_adjacencia, limiar=LIMIAR_RELEVANCIA):
+    grafo = {vertice: [] for vertice in range(len(matriz_adjacencia))}
+
+    for i in range(len(matriz_adjacencia)):
+        for j in range(i + 1, len(matriz_adjacencia)):
+            if matriz_adjacencia[i][j] >= limiar:
+                grafo[i].append(j)
+                grafo[j].append(i)
+
+    return grafo
+
+
 def executar_pipeline(caminho_feedbacks=CAMINHO_FEEDBACKS):
     print("=" * 60)
     print("TopicGraph EJ - Pipeline completo")
@@ -59,6 +71,7 @@ def executar_pipeline(caminho_feedbacks=CAMINHO_FEEDBACKS):
     graus = calcular_graus(matriz_adjacencia)
     grau_medio = calcular_grau_medio(graus)
     densidade = calcular_densidade(matriz_adjacencia)
+    grafo_relevante = construir_grafo_relevante(matriz_adjacencia)
     imprimir_resumo_etapa("Grau medio inicial", f"{grau_medio:.2f}")
     imprimir_resumo_etapa("Densidade inicial", f"{densidade:.4f}")
 
@@ -92,7 +105,7 @@ def executar_pipeline(caminho_feedbacks=CAMINHO_FEEDBACKS):
         densidade=densidade,
         grau_medio=grau_medio,
         limiar=LIMIAR_RELEVANCIA,
-        adj_list=grafo_final,
+        adj_list=grafo_relevante,
     )
 
     return {
@@ -103,6 +116,7 @@ def executar_pipeline(caminho_feedbacks=CAMINHO_FEEDBACKS):
         "graus": graus,
         "grau_medio": grau_medio,
         "densidade": densidade,
+        "grafo_relevante": grafo_relevante,
         "arvore_geradora_maxima": arvore_geradora_maxima,
         "comunidades": comunidades,
         "outliers": outliers,
