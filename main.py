@@ -95,17 +95,17 @@ def executar_pipeline(caminho_feedbacks=CAMINHO_FEEDBACKS):
         len(resultado_comunidades["removed_edges"]),
     )
 
-    comunidades_para_relatorio = comunidades + [[outlier] for outlier in outliers]
-    topicos = nomear_topicos(comunidades_para_relatorio, conjuntos_por_id)
+    topicos = nomear_topicos(comunidades, conjuntos_por_id)
 
     calcular_metricas_finais(
-        comunidades=comunidades_para_relatorio,
+        comunidades=comunidades,
         dicionario_topicos=topicos,
         total_feedbacks=len(feedbacks),
         densidade=densidade,
         grau_medio=grau_medio,
         limiar=LIMIAR_RELEVANCIA,
         adj_list=grafo_relevante,
+        outliers=outliers,
     )
 
     return {
