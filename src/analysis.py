@@ -51,3 +51,21 @@ def extrair_palavras_frequentes(comunidade, conjuntos_lemas, top_k=5):
     
     # Retorna apenas a quantidade pedida
     return pares_ordenados[:top_k]
+def nomear_topicos(comunidades, conjuntos_lemas):
+    # Mapeia cada comunidade para um dicionário contendo os IDs dos feedbacks e uma string com as palavras-chave mais frequentes que dão nome ao tópico.
+    dicionario_topicos = {}
+    
+    for i, comunidade in enumerate(comunidades):
+        # Pega as 3 palavras mais frequentes para dar nome ao tópico (top_k=3)
+        top_termos = extrair_palavras_frequentes(comunidade, conjuntos_lemas, top_k=3)
+        
+        # Junta os termos com uma vírgula. Ex: "atrasar, entrega, prazo"
+        nome_topico = ", ".join([termo[0] for termo in top_termos])
+        
+        # Guarda a estrutura de dados da comunidade rotulada
+        dicionario_topicos[f"Topico_{i+1}"] = {
+            "feedbacks_ids": comunidade,
+            "palavras_chave": nome_topico if nome_topico else "Sem termos relevantes"
+        }
+        
+    return dicionario_topicos
