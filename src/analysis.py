@@ -51,6 +51,7 @@ def extrair_palavras_frequentes(comunidade, conjuntos_lemas, top_k=5):
     
     # Retorna apenas a quantidade pedida
     return pares_ordenados[:top_k]
+
 def nomear_topicos(comunidades, conjuntos_lemas):
     # Mapeia cada comunidade para um dicionário contendo os IDs dos feedbacks e uma string com as palavras-chave mais frequentes que dão nome ao tópico.
     dicionario_topicos = {}
@@ -63,24 +64,46 @@ def nomear_topicos(comunidades, conjuntos_lemas):
         nome_topico = ", ".join([termo[0] for termo in top_termos])
         
         # Guarda a estrutura de dados da comunidade rotulada
-        dicionario_topicos[f"Topico_{i+1}"] = {
+        dicionario_topicos[f"Tópico_{i+1}"] = {
             "feedbacks_ids": comunidade,
-            "palavras_chave": nome_topico if nome_topico else "Sem termos relevantes"
+            "palavras_chave": nome_topico if nome_topico else "Tópico não classificado"
         }
         
     return dicionario_topicos
 
-def calcular_metricas_finais(dicionario_topicos, total_feedbacks):
-    #Gera o relatório final de análise dos feedbacks, mostrando a quantidade de feedbacks em cada tópico e a porcentagem que cada tópico representa do total analisado.
+def detectar_triangulos(adj_list):
+    triangulos = set()
+    vertices = list(adj_list.keys())
+    
+    for u in vertices:
+        for v in adj_list[u]:
+            if v > u:  # Evita duplicar caminhos no grafo não direcionado
+                for w in adj_list[v]:
+                    if w > v and w in adj_list[u]:
+                        triangulos.add(tuple(sorted([u, v, w])))
+    return list(triangulos)
+
+def calcular_metricas_finais(comunidades, dicionario_topicos, total_feedbacks, densidade, grau_medio, limiar, adj_list):
+    # Identifica os outliers (comunidades de tamanho igual a 1)
+    outliers = [c[0] for c in comunidades if len(c) == 1]
+    triangulos = detectar_triangulos(adj_list)
+    
     print("\n" + "="*50)
-    print("RELATÓRIO FINAL DE ANÁLISE DE FEEDBACKS")
+    print("RELATÓRIO FINAL E RESUMO ESTATÍSTICO DO GRAFO")
     print("="*50)
+    print(f"👉 Número total de comunidades: {len(comunidades)}")
+    print(f"👉 Densidade calculada do grafo: {densidade:.4f}")
+    print(f"👉 Grau médio do grafo: {grau_medio:.2f}")
+    print(f"👉 Limiar de arestas relevantes utilizado: {limiar}")
+    print(f"👉 Triângulos/Cliques K3 detetados: {len(triangulos)}")
+    print(f"👉 Quantidade de Outliers listados: {len(outliers)} (IDs: {outliers})")
+    print("-" * 50)
     
     for nome_topico, dados in dicionario_topicos.items():
         qtd_feedbacks = len(dados["feedbacks_ids"])
-        # Calcula a porcentagem de representatividade do tópico
+        # Calcula a porcentagem de representatividade do tópico (Tamanho de cada comunidade)
         porcentagem = (qtd_feedbacks / total_feedbacks) * 100 if total_feedbacks > 0 else 0
         
         print(f"\n📌 {nome_topico}: [{dados['palavras_chave']}]")
-        print(f"   -> Quantidade de feedbacks: {qtd_feedbacks}")
+        print(f"   -> Tamanho da comunidade: {qtd_feedbacks} feedbacks")
         print(f"   -> Representa {porcentagem:.2f}% do total analisado.")

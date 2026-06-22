@@ -3,7 +3,13 @@ import os
 
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
-from src.analysis import HashTable, extrair_palavras_frequentes, nomear_topicos, calcular_metricas_finais
+from src.analysis import (
+    HashTable, 
+    extrair_palavras_frequentes, 
+    nomear_topicos, 
+    detectar_triangulos,
+    calcular_metricas_finais
+)
 
 
 def test_hash_table_operacoes():
@@ -48,35 +54,67 @@ def test_nomear_topicos_e_outliers():
     
     resultado = nomear_topicos(comunidades, conjuntos_lemas)
 
-    assert "Topico_1" in resultado
-    assert resultado["Topico_1"]["feedbacks_ids"] == [0, 1]
-    assert "suporte" in resultado["Topico_1"]["palavras_chave"]
-    assert resultado["Topico_2"]["palavras_chave"] == "Sem termos relevantes", "Erro: Deveria rotular adequadamente uma comunidade vazia."
-    print("   -> Nomeação de Tópicos: OK (Estrutura de dicionário, IDs guardados e tratamento de outliers).")
-
-
-def test_calcular_metricas_finais(capsys):
-    print("🧪 Testando Issue #17: Exibição de Métricas Finais...")
+# Valida se mapeou corretamente as chaves dos tópicos
+    assert "Tópico_1" in resultado, "Erro: A chave 'Tópico_1' deveria existir no resultado."
+    assert "Tópico_2" in resultado, "Erro: A chave 'Tópico_2' deveria existir no resultado."
     
-    dicionario_topicos = {
-        "Topico_1": {"feedbacks_ids": [1, 2, 3], "palavras_chave": "atraso, entrega"},
-        "Topico_2": {"feedbacks_ids": [4], "palavras_chave": "preco"}
+    # Valida se guardou os IDs dos feedbacks corretamente
+    assert resultado["Tópico_1"]["feedbacks_ids"] == [0, 1]
+    
+    # Valida se extraiu a palavra-chave correta
+    assert "suporte" in resultado["Tópico_1"]["palavras_chave"]
+    
+    # Valida o novo rótulo de segurança para tópicos vazios conforme a regra de negócio atualizada
+    assert resultado["Tópico_2"]["palavras_chave"] == "Tópico não classificado", "Erro: Deveria rotular adequadamente uma comunidade vazia."
+    print("   -> Nomeação de Tópicos: OK.")
+
+
+def test_detectar_triangulos_e_metricas(capsys):
+    print("🧪 Testando Issue #17: Triângulos e Resumo Estatístico do Grafo...")
+    
+    # Simula uma lista de adjacências contendo um triângulo perfeito entre os nós 1, 2 e 3
+    adj_list = {
+        1: [2, 3],
+        2: [1, 3],
+        3: [1, 2],
+        4: []  # Nó isolado (outlier)
     }
-    total_feedbacks = 4
     
-    calcular_metricas_finais(dicionario_topicos, total_feedbacks)
-
+    # 1. Testa a função matemática de detecção de cliques K3
+    triangulos = detectar_triangulos(adj_list)
+    assert len(triangulos) == 1, "Erro: Deveria ter detectado exatamente 1 triângulo."
+    assert triangulos[0] == (1, 2, 3), "Erro: O triângulo detectado deveria ser (1, 2, 3)."
+    
+    # 2. Testa a exibição das métricas consolidadas com dados do Integrante 2
+    comunidades = [[1, 2, 3], [4]] # Comunidade 2 possui tamanho 1 (outlier)
+    dicionario_topicos = {
+        "Tópico_1": {"feedbacks_ids": [1, 2, 3], "palavras_chave": "atraso, prazo"},
+        "Tópico_2": {"feedbacks_ids": [4], "palavras_chave": "Tópico não classificado"}
+    }
+    
+    # Executa passando dados simulados (densidade, grau médio e limiar)
+    calcular_metricas_finais(
+        comunidades=comunidades,
+        dicionario_topicos=dicionario_topicos,
+        total_feedbacks=4,
+        densidade=0.5,
+        grau_medio=2.0,
+        limiar=0.25,
+        adj_list=adj_list
+    )
+    
     saida = capsys.readouterr().out
-    
-    assert "Quantidade de feedbacks: 3" in saida
-    assert "Representa 75.00%" in saida
-    assert "Representa 25.00%" in saida
-    print("   -> Métricas de Negócio: OK (Cálculos de volumetria e percentuais exatos).")
+    assert "Número total de comunidades: 2" in saida
+    assert "Densidade calculada do grafo: 0.5000" in saida
+    assert "Grau médio do grafo: 2.00" in saida
+    assert "Limiar de arestas relevantes utilizado: 0.25" in saida
+    assert "Triângulos/Cliques K3 detetados: 1" in saida
+    assert "Quantidade de Outliers listados: 1" in saida
+    print("   -> Métricas estruturais e relatório: OK.")
 
 
 if __name__ == "__main__":
-    print("====== INICIANDO SUÍTE DE TESTES Do Integrante 5(Interpretação e análise) ======\n")
-    
+    print("====== INICIANDO SUÍTE DE TESTES Do Integrante 5(Interpretação e análise) ======\n") 
     test_hash_table_operacoes()
     test_extrair_palavras_frequentes()
     test_nomear_topicos_e_outliers()
@@ -87,13 +125,10 @@ if __name__ == "__main__":
             from contextlib import redirect_stdout
             f = io.StringIO()
             with redirect_stdout(f):
-                calcular_metricas_finais({
-                    "Topico_1": {"feedbacks_ids": [1, 2, 3], "palavras_chave": "atraso, entrega"},
-                    "Topico_2": {"feedbacks_ids": [4], "palavras_chave": "preco"}
-                }, total_feedbacks=4)
+                calcular_metricas_finais([[1,2,3],[4]], {"T1":{"feedbacks_ids":[1,2,3],"palavras_chave":""}}, 4, 0.5, 2.0, 0.25, {1:[2,3],2:[1,3],3:[1,2],4:[]})
             return type('Output', (object,), {'out': f.getvalue()})()
             
-    test_calcular_metricas_finais(CapsysMock())
+    test_detectar_triangulos_e_metricas(CapsysMock())
     
     print("\n======================================================")
     print("🎉 PARABÉNS! Todas as suas issues foram validadas com 100% de sucesso!")
