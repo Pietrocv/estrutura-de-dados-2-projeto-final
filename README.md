@@ -17,6 +17,7 @@
 - [Dependências](#dependências)
 - [Como Executar](#como-executar)
 - [Exemplo de Entrada e Saída](#exemplo-de-entrada-e-saída)
+- [Resultados Reais e Interpretação](#resultados-reais-e-interpretação)
 - [Checklist de Entrega](#checklist-de-entrega)
 
 ---
@@ -129,6 +130,7 @@ Todos os algoritmos e estruturas centrais foram implementados **manualmente**, s
 | Detecção de Outliers | Anexação ou classificação de vértices isolados | `communities.py` |
 | Detecção de Triângulos | Busca de cliques de tamanho 3 no grafo filtrado | `analysis.py` |
 | Tabela Hash manual | Classe própria com função hash, buckets e encadeamento separado | `analysis.py` |
+| Nomeação automática | Termos frequentes na comunidade ponderados pela raridade nos demais grupos | `analysis.py` |
 
 ---
 
@@ -258,6 +260,8 @@ O suporte pós-entrega foi rápido e atencioso.
 
 > Linhas em branco são ignoradas automaticamente. A ordem das linhas define o ID de cada vértice no grafo (linha 0 = vértice 0, linha 1 = vértice 1, etc.).
 
+O repositório também contém `data/feedbacks_300.txt`, uma base adicional com 300 feedbacks distintos para testes de maior escala. Para utilizá-la sem alterar o código, substitua temporariamente o conteúdo de `data/feedbacks.txt` pelo conteúdo dessa base ou passe seu caminho para `executar_pipeline`.
+
 ### 6. Execute o pipeline completo
 
 ```bash
@@ -266,7 +270,7 @@ python main.py
 
 ### 7. Verifique a saída
 
-O sistema imprime no terminal e gera o arquivo `relatorio_resultados.txt` com as comunidades detectadas, os tópicos nomeados, as palavras-chave de cada grupo, os outliers e as métricas finais.
+O sistema imprime no terminal as comunidades detectadas, os tópicos nomeados, as palavras-chave de cada grupo, os outliers e as métricas finais. As visualizações da execução usada na análise estão no diretório `output/`.
 
 ---
 
@@ -327,9 +331,99 @@ Triângulos encontrados: 1
   F5: "A solução entregue atendeu bem às necessidades."
 
 ============================================================
-  Relatório salvo em: relatorio_resultados.txt
+  Fim do relatório
 ============================================================
 ```
+
+---
+
+## Resultados Reais e Interpretação
+
+Os resultados abaixo correspondem à execução registrada nos arquivos SVG do diretório `output/`, usando os 150 feedbacks de `data/feedbacks.txt` e limiar de relevância igual a `0.20`.
+
+### Resumo quantitativo
+
+| Métrica | Resultado observado |
+|---|---:|
+| Feedbacks processados / vértices | 150 |
+| Arestas com similaridade relevante | 577 |
+| Limiar de similaridade de Jaccard | 0.20 |
+| Comunidades detectadas | 11 |
+| Outliers | 0 |
+| Densidade do grafo filtrado | 0.0516 |
+| Grau médio do grafo filtrado | 7.69 |
+
+A densidade foi calculada por `577 / (150 × 149 / 2)`. O grau médio foi calculado por `2 × 577 / 150`.
+
+O grafo é esparso: apenas aproximadamente 5,16% das arestas possíveis permaneceram após a filtragem. Mesmo assim, cada vértice possui em média 7,69 relações relevantes. Isso indica que o limiar removeu a maior parte das comparações fracas sem eliminar as conexões internas necessárias para formar os tópicos.
+
+### Comunidades encontradas
+
+| Comunidade | Quantidade | IDs dos feedbacks | Interpretação do tópico |
+|---|---:|---|---|
+| 1 | 16 | 0–15 | Comunicação, mensagens, reuniões e alinhamento |
+| 2 | 16 | 16–31 | Prazos, cronograma, etapas e atrasos |
+| 3 | 16 | 32–47 | Qualidade técnica, código, testes e validação |
+| 4 | 14 | 48–61 | Preço, orçamento, custo-benefício e negociação |
+| 5 | 14 | 62–75 | Suporte pós-entrega, treinamento, correções e garantia |
+| 6 | 14 | 76–89 | Levantamento de requisitos, diagnóstico e definição de escopo |
+| 7 | 7 | 90, 92, 94, 96, 98, 100 e 102 | Documentação, relatório, arquivos e limitações |
+| 8 | 7 | 91, 93, 95, 97, 99, 101 e 103 | Apresentação, slides, recursos visuais e resumo |
+| 9 | 14 | 104–117 | Atendimento, confiança, postura e relacionamento com o cliente |
+| 10 | 13 | 118–130 | Infraestrutura e experiência de uso: sala, internet, estacionamento e formulário |
+| 11 | 19 | 131–149 | Resultados, indicadores, evidências, impacto e tomada de decisão |
+
+As comunidades 7 e 8 são um resultado especialmente relevante. Esses feedbacks estavam próximos na base por tratarem da comunicação dos resultados, mas o algoritmo separou corretamente dois subtemas: documentação escrita e apresentação visual. Isso mostra que o método não se limitou a separar os blocos maiores da base.
+
+A comunidade 11 foi a maior, com 19 feedbacks, representando aproximadamente 12,67% da coleção. As comunidades 7 e 8 foram as menores, com 7 feedbacks cada, ou aproximadamente 4,67% da coleção por comunidade. Não houve outliers, portanto todos os documentos apresentaram similaridade suficiente para pertencer a algum grupo.
+
+### Interpretação e limitações
+
+Os agrupamentos são semanticamente coerentes com os assuntos presentes nos textos. Termos como `prazo`, `cronograma` e `atraso` aproximaram os feedbacks de planejamento, enquanto `codigo`, `teste` e `validacao` aproximaram os feedbacks de qualidade técnica. O mesmo comportamento ocorreu nos demais tópicos.
+
+O resultado também deve ser interpretado considerando as seguintes limitações:
+
+- O índice de Jaccard mede compartilhamento de lemas, mas não compreende sozinho sinônimos ou contexto profundo. Dois textos semanticamente semelhantes podem não se conectar se utilizarem vocabulários muito diferentes.
+- Os dados são controlados e possuem vocabulário recorrente em cada temática. Isso facilita a formação de comunidades mais bem separadas do que seria esperado em uma base real e ruidosa.
+- O valor `0.20` é um parâmetro empírico. Valores menores tendem a unir tópicos diferentes; valores maiores podem fragmentar um tópico e aumentar o número de outliers.
+- A árvore geradora máxima preserva as relações mais fortes necessárias para conectar os vértices, mas descarta relações redundantes que ainda poderiam ser úteis em outras técnicas de detecção de comunidades.
+- Os nomes apresentados na tabela são interpretações humanas dos termos e feedbacks de cada comunidade. O código produz palavras-chave automaticamente, mas a atribuição de um nome semântico final exige interpretação.
+
+Assim, a execução demonstra que a combinação de pré-processamento linguístico, similaridade de Jaccard, filtragem, Prim Máximo e componentes conexos conseguiu recuperar os principais assuntos planejados para a coleção. O resultado é adequado como prova de funcionamento do método, mas uma avaliação futura com feedbacks reais e menos controlados seria necessária para medir sua capacidade de generalização.
+
+### Nomeação automática posterior
+
+As comunidades são detectadas antes de receber qualquer nome. A nomeação não
+escolhe, cria ou altera os grupos encontrados pelo algoritmo de grafos.
+
+Depois da detecção, o sistema conta os lemas de cada comunidade com a tabela
+hash manual. Cada lema recebe uma pontuação que combina sua frequência dentro
+da comunidade com sua raridade nas outras comunidades. Os três termos de maior
+pontuação formam um rótulo automático, sem uma lista prévia de assuntos.
+
+Exemplo:
+
+```text
+Comunidade detectada: [16, 17, 18, 19, ...]
+Termos representativos: prazo, cronograma, atraso
+Nome automático: Prazo / Cronograma / Atraso
+```
+
+O fluxo completo permanece:
+
+```text
+Textos -> grafo -> Prim Máximo -> corte de arestas -> comunidades
+       -> termos representativos -> nome automático
+```
+
+Essa abordagem permite que um assunto inesperado receba um nome baseado nos
+próprios dados, sem limitar a detecção a categorias definidas pelo grupo.
+
+### Visualizações da execução
+
+- `output/vertices_iniciais_150.svg`: os 150 documentos antes da criação das arestas;
+- `output/grafo_relevante_150.svg`: o grafo filtrado, com 577 arestas e 11 componentes visuais;
+- `output/comunidades_detectadas_150.svg`: as 11 comunidades finais e seus respectivos tamanhos.
 
 ---
 
