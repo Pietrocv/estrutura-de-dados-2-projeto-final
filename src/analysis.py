@@ -69,3 +69,18 @@ def nomear_topicos(comunidades, conjuntos_lemas):
         }
         
     return dicionario_topicos
+
+def calcular_metricas_finais(dicionario_topicos, total_feedbacks):
+    #Gera o relatório final de análise dos feedbacks, mostrando a quantidade de feedbacks em cada tópico e a porcentagem que cada tópico representa do total analisado.
+    print("\n" + "="*50)
+    print("RELATÓRIO FINAL DE ANÁLISE DE FEEDBACKS")
+    print("="*50)
+    
+    for nome_topico, dados in dicionario_topicos.items():
+        qtd_feedbacks = len(dados["feedbacks_ids"])
+        # Calcula a porcentagem de representatividade do tópico
+        porcentagem = (qtd_feedbacks / total_feedbacks) * 100 if total_feedbacks > 0 else 0
+        
+        print(f"\n📌 {nome_topico}: [{dados['palavras_chave']}]")
+        print(f"   -> Quantidade de feedbacks: {qtd_feedbacks}")
+        print(f"   -> Representa {porcentagem:.2f}% do total analisado.")
