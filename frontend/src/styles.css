@@ -230,17 +230,61 @@ pre {
 }
 
 .panelHeader {
+  align-items: center;
   border-bottom: 1px solid #e2e8f0;
+  display: flex;
+  justify-content: space-between;
   padding: 14px 16px;
+}
+
+.iconButton {
+  align-items: center;
+  background: #f8fafc;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  color: #0f172a;
+  cursor: pointer;
+  display: inline-flex;
+  height: 36px;
+  justify-content: center;
+  width: 36px;
+}
+
+.iconButton:hover {
+  background: #e2e8f0;
+}
+
+.reportToggle {
+  background: #f8fafc;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  color: #0f172a;
+  cursor: pointer;
+  font-weight: 700;
+  min-height: 42px;
+  padding: 9px 12px;
+  text-align: left;
+}
+
+.reportToggle:hover {
+  background: #e2e8f0;
 }
 
 .svgBox {
   background: #f8fafc;
+  border: 0;
   overflow: auto;
   padding: 12px;
+  text-align: left;
+  width: 100%;
 }
 
-.svgBox svg {
+.svgButton {
+  cursor: zoom-in;
+}
+
+.svgBox svg,
+.modalSvg svg {
   display: block;
   height: auto;
   max-width: 100%;
@@ -254,6 +298,53 @@ pre {
 
 .threePanels .panelHeader h2 {
   font-size: 15px;
+}
+
+.modalBackdrop {
+  align-items: center;
+  background: rgba(15, 23, 42, 0.72);
+  display: flex;
+  inset: 0;
+  justify-content: center;
+  padding: 24px;
+  position: fixed;
+  z-index: 100;
+}
+
+.modalPanel {
+  background: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 24px 80px rgba(15, 23, 42, 0.32);
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+  max-height: 92vh;
+  max-width: 94vw;
+  overflow: hidden;
+  width: 1180px;
+}
+
+.modalHeader {
+  align-items: center;
+  border-bottom: 1px solid #e2e8f0;
+  display: flex;
+  justify-content: space-between;
+  padding: 14px 16px;
+}
+
+.modalHeader h2 {
+  font-size: 18px;
+  margin: 0;
+}
+
+.modalSvg {
+  background: #f8fafc;
+  overflow: auto;
+  padding: 16px;
+}
+
+.modalSvg svg {
+  max-width: none;
+  min-width: 1040px;
 }
 
 @media (max-width: 1100px) {

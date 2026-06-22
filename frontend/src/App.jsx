@@ -1,6 +1,6 @@
 import React, { useMemo, useState } from "react";
 import { createRoot } from "react-dom/client";
-import { FileUp, Loader2, Network, Shuffle, Sparkles } from "lucide-react";
+import { FileUp, Loader2, Maximize2, Network, Shuffle, Sparkles, X } from "lucide-react";
 import "./styles.css";
 
 const API_URL = "http://127.0.0.1:8000";
@@ -38,14 +38,19 @@ function Metric({ label, value }) {
   );
 }
 
-function SvgPanel({ title, svg }) {
+function SvgPanel({ title, svg, onExpand }) {
   if (!svg) return null;
   return (
     <section className="panel">
       <div className="panelHeader">
         <h2>{title}</h2>
+        <button className="iconButton" onClick={() => onExpand(title, svg)} title="Expandir imagem">
+          <Maximize2 size={17} />
+        </button>
       </div>
-      <div className="svgBox" dangerouslySetInnerHTML={{ __html: svg }} />
+      <button className="svgBox svgButton" onClick={() => onExpand(title, svg)} aria-label={`Expandir ${title}`}>
+        <span dangerouslySetInnerHTML={{ __html: svg }} />
+      </button>
     </section>
   );
 }
@@ -55,6 +60,8 @@ function App() {
   const [erro, setErro] = useState("");
   const [carregando, setCarregando] = useState(false);
   const [quantidade, setQuantidade] = useState(90);
+  const [relatorioAberto, setRelatorioAberto] = useState(false);
+  const [svgExpandido, setSvgExpandido] = useState(null);
   const metricas = useMemo(() => resultado?.metricas ?? {}, [resultado]);
 
   async function tratarResposta(response) {
@@ -69,6 +76,7 @@ function App() {
       throw new Error(mensagem || "Nao foi possivel analisar os feedbacks.");
     }
     setResultado(data);
+    setRelatorioAberto(false);
   }
 
   async function gerarAleatorio() {
@@ -167,19 +175,52 @@ function App() {
                   <Metric label="Triangulos K3" value={metricas.triangulos} />
                   <Metric label="Outliers" value={metricas.outliers} />
                 </div>
-                <pre>{resultado.relatorio}</pre>
+                <button className="reportToggle" onClick={() => setRelatorioAberto((aberto) => !aberto)}>
+                  {relatorioAberto ? "Ocultar relatorio completo" : "Mostrar relatorio completo"}
+                </button>
+                {relatorioAberto && <pre>{resultado.relatorio}</pre>}
               </section>
 
-              <SvgPanel title="Fluxo visual completo" svg={resultado.visualizacoes.fluxo_completo} />
+              <SvgPanel
+                title="Fluxo visual completo"
+                svg={resultado.visualizacoes.fluxo_completo}
+                onExpand={(title, svg) => setSvgExpandido({ title, svg })}
+              />
               <div className="threePanels">
-                <SvgPanel title="Vertices iniciais" svg={resultado.visualizacoes.vertices_iniciais} />
-                <SvgPanel title="Grafo filtrado" svg={resultado.visualizacoes.grafo_filtrado} />
-                <SvgPanel title="Comunidades nomeadas" svg={resultado.visualizacoes.comunidades} />
+                <SvgPanel
+                  title="Vertices iniciais"
+                  svg={resultado.visualizacoes.vertices_iniciais}
+                  onExpand={(title, svg) => setSvgExpandido({ title, svg })}
+                />
+                <SvgPanel
+                  title="Grafo filtrado"
+                  svg={resultado.visualizacoes.grafo_filtrado}
+                  onExpand={(title, svg) => setSvgExpandido({ title, svg })}
+                />
+                <SvgPanel
+                  title="Comunidades nomeadas"
+                  svg={resultado.visualizacoes.comunidades}
+                  onExpand={(title, svg) => setSvgExpandido({ title, svg })}
+                />
               </div>
             </>
           )}
         </section>
       </section>
+
+      {svgExpandido && (
+        <div className="modalBackdrop" role="dialog" aria-modal="true" aria-label={svgExpandido.title}>
+          <div className="modalPanel">
+            <div className="modalHeader">
+              <h2>{svgExpandido.title}</h2>
+              <button className="iconButton" onClick={() => setSvgExpandido(null)} title="Fechar">
+                <X size={20} />
+              </button>
+            </div>
+            <div className="modalSvg" dangerouslySetInnerHTML={{ __html: svgExpandido.svg }} />
+          </div>
+        </div>
+      )}
     </main>
   );
 }
