@@ -1,6 +1,6 @@
 import React, { useMemo, useState } from "react";
 import { createRoot } from "react-dom/client";
-import { FileUp, Loader2, Maximize2, Network, Shuffle, Sparkles, X } from "lucide-react";
+import { ExternalLink, FileUp, Loader2, Maximize2, Network, Shuffle, X } from "lucide-react";
 import "./styles.css";
 
 const API_URL = "http://127.0.0.1:8000";
@@ -121,10 +121,6 @@ function App() {
     <main className="appShell">
       <header className="topbar">
         <Logo />
-        <div className="statusPill">
-          <Sparkles size={16} />
-          Bonus App
-        </div>
       </header>
 
       <section className="workspace">
@@ -154,6 +150,19 @@ function App() {
             </button>
           </div>
           {erro && <p className="error">{erro}</p>}
+          <div className="projectLinks">
+            <a
+              href="https://github.com/Pietrocv/estrutura-de-dados-2-projeto-final"
+              target="_blank"
+              rel="noreferrer"
+            >
+              <ExternalLink size={17} />
+              GitHub do projeto
+            </a>
+            <button type="button" onClick={() => window.alert("Pagina de apresentacao em construcao.")}>
+              Apresentacao
+            </button>
+          </div>
         </aside>
 
         <section className="results">

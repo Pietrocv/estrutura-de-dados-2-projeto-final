@@ -25,7 +25,6 @@ input {
 .topbar {
   align-items: center;
   display: flex;
-  justify-content: space-between;
   margin: 0 auto 20px;
   max-width: 1480px;
 }
@@ -50,16 +49,6 @@ input {
 .brand p {
   color: #475569;
   margin: 4px 0 0;
-}
-
-.statusPill {
-  align-items: center;
-  background: #ffffff;
-  border: 1px solid #cbd5e1;
-  border-radius: 999px;
-  display: flex;
-  gap: 8px;
-  padding: 10px 14px;
 }
 
 .workspace {
@@ -163,6 +152,35 @@ input {
   color: #991b1b;
   margin: 14px 0 0;
   padding: 10px;
+}
+
+.projectLinks {
+  border-top: 1px solid #e2e8f0;
+  display: grid;
+  gap: 10px;
+  margin-top: 16px;
+  padding-top: 16px;
+}
+
+.projectLinks a,
+.projectLinks button {
+  align-items: center;
+  background: #f8fafc;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  color: #0f172a;
+  cursor: pointer;
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  min-height: 42px;
+  padding: 9px 12px;
+  text-decoration: none;
+}
+
+.projectLinks a:hover,
+.projectLinks button:hover {
+  background: #e2e8f0;
 }
 
 .results {
