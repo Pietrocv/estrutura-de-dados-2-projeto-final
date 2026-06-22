@@ -21,7 +21,7 @@ app.add_middleware(
 
 
 class GenerateRequest(BaseModel):
-    quantidade: int = Field(default=90, ge=10, le=250)
+    quantidade: int = Field(default=90, ge=10, le=500)
 
 
 class AnalyzeRequest(BaseModel):

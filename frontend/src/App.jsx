@@ -60,7 +60,13 @@ function App() {
   async function tratarResposta(response) {
     const data = await response.json();
     if (!response.ok) {
-      throw new Error(data.detail || "Nao foi possivel analisar os feedbacks.");
+      const detalhe = data.detail;
+      const mensagem = Array.isArray(detalhe)
+        ? detalhe.map((item) => item.msg || JSON.stringify(item)).join(" ")
+        : typeof detalhe === "object" && detalhe !== null
+          ? JSON.stringify(detalhe)
+          : detalhe;
+      throw new Error(mensagem || "Nao foi possivel analisar os feedbacks.");
     }
     setResultado(data);
   }
@@ -130,7 +136,7 @@ function App() {
               id="quantidade"
               type="number"
               min="10"
-              max="250"
+              max="500"
               value={quantidade}
               onChange={(event) => setQuantidade(Number(event.target.value))}
             />
