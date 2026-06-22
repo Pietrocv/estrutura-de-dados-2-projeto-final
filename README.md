@@ -428,3 +428,33 @@ próprios dados, sem limitar a detecção a categorias definidas pelo grupo.
 ---
 
 *Projeto desenvolvido para a disciplina de Estruturas de Dados 2.*
+---
+
+## Bonus App
+
+O repositorio tambem possui uma interface web para executar a analise visualmente.
+
+### Backend
+
+```powershell
+python -m pip install -r requirements.txt
+python -m uvicorn api.app:app --host 127.0.0.1 --port 8000
+```
+
+### Frontend
+
+Em outro terminal:
+
+```powershell
+cd frontend
+npm install
+npm run dev -- --host localhost --port 5173
+```
+
+Depois abra:
+
+```text
+http://localhost:5173
+```
+
+O app permite enviar um arquivo `.txt` de feedbacks ou gerar feedbacks aleatorios. A tela exibe primeiro o relatorio de metricas e, depois, as visualizacoes dos vertices iniciais, grafo filtrado e comunidades detectadas.
