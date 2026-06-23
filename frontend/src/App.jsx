@@ -140,7 +140,7 @@ function App() {
               id="quantidade"
               type="number"
               min="10"
-              max="500"
+              max="250"
               value={quantidade}
               onChange={(event) => setQuantidade(Number(event.target.value))}
             />
