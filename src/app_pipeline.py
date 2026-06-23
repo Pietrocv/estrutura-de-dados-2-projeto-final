@@ -86,11 +86,58 @@ TOPICOS_ALEATORIOS = [
 ]
 
 
+OUTLIERS_ALEATORIOS = [
+    "Biblioteca silenciosa catalogo antigo prateleira poeira.",
+    "Jardim externo banco molhado chuva madrugada.",
+    "Cantina lateral sanduiche queimado fila barulhenta.",
+    "Portao secundario cadeado enferrujado vigilancia noturna.",
+    "Quadra esportiva bola furada rede rasgada.",
+    "Laboratorio quimica frasco vazio bancada manchada.",
+    "Bicicletario pequeno corrente solta pneu murcho.",
+    "Impressora corredor toner fraco papel amassado.",
+    "Bebedouro quebrado copo descartavel torneira vazando.",
+    "Bibliografia antiga livro sumido etiqueta rasurada.",
+    "Armario metalico chave torta dobradica rangendo.",
+    "Ventilador teto ruido constante poeira acumulada.",
+    "Janela emperrada cortina rasgada claridade excessiva.",
+    "Microfone palco chiado alto bateria fraca.",
+    "Relogio parede atrasado ponteiro solto visor trincado.",
+    "Escada lateral corrimao frouxo degrau escorregadio.",
+    "Mapa predio placa confusa rota bloqueada.",
+    "Projetor reserva cabo curto entrada danificada.",
+    "Recepcao vazia campainha baixa cracha esquecido.",
+    "Lixeira seletiva adesivo apagado tampa quebrada.",
+    "Arquivo morto caixa umida etiqueta perdida.",
+    "Uniforme evento tamanho errado tecido arranhando.",
+    "Chaveiro portaria codigo trocado gaveta travada.",
+    "Balcao secretaria carimbo seco protocolo perdido.",
+    "Cortador papel lamina cega regua solta.",
+    "Cadeira auditorio espuma rasgada encosto torto.",
+    "Persiana vertical trilho preso cordao rompido.",
+    "Extintor corredor lacre vencido suporte solto.",
+    "Tombo placa acrilico canto quebrado parafuso perdido.",
+    "Mural avisos fita velha cartaz caido.",
+    "Controle remoto pilha vazia botao afundado.",
+    "Caixa som volume irregular conector oxidado.",
+    "Tapete entrada borda levantada limpeza atrasada.",
+    "Porta vidro adesivo torto puxador frouxo.",
+    "Agenda recepcao pagina faltando caneta seca.",
+    "Scanner antigo tampa desalinhada cabo gasto.",
+    "Mesa dobravel perna bamba superficie riscada.",
+    "Canaleta eletrica aberta fio exposto parede.",
+    "Arquivo digital pasta duplicada nome confuso.",
+    "Etiqueta patrimonio numero borrado cola fraca.",
+]
+
+
 def gerar_feedbacks_aleatorios(total: int = 90) -> list[str]:
     feedbacks = []
-    while len(feedbacks) < total:
+    quantidade_outliers = max(1, round(total * 0.08)) if total >= 20 else 0
+    quantidade_tematicos = total - quantidade_outliers
+
+    while len(feedbacks) < quantidade_tematicos:
         for topico in TOPICOS_ALEATORIOS:
-            if len(feedbacks) >= total:
+            if len(feedbacks) >= quantidade_tematicos:
                 break
             indice = len(feedbacks)
             termos = topico["termos"]
@@ -99,6 +146,10 @@ def gerar_feedbacks_aleatorios(total: int = 90) -> list[str]:
             b = termos[(indice + 2) % len(termos)]
             c = termos[(indice + 4) % len(termos)]
             feedbacks.append(f"{modelo} {a} {b} {c}.")
+
+    for indice in range(quantidade_outliers):
+        feedbacks.append(OUTLIERS_ALEATORIOS[indice % len(OUTLIERS_ALEATORIOS)])
+
     return feedbacks
 
 
