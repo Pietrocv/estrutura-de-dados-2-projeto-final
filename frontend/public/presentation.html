@@ -559,7 +559,7 @@
           </div>
           <h1>Detecção de Tópicos em Feedbacks usando <span class="accent">PLN e Grafos</span></h1>
           <p class="lead">De textos dispersos a comunidades interpretáveis para apoiar decisões em uma Empresa Júnior.</p>
-          <div class="title-meta"><span>Grupo 13</span><span>Até 250 feedbacks</span><span>Análise ao vivo</span><span>Algoritmos manuais</span></div>
+          <div class="title-meta"><span>Grupo 13</span><span>Até 500 feedbacks no app</span><span>Análise ao vivo</span><span>Algoritmos manuais</span></div>
         </div>
         <div class="hero-graph">
           <svg viewBox="0 0 620 620" aria-hidden="true">
@@ -636,7 +636,7 @@ O suporte pós-entrega respondeu...</pre>
           <h3>Correspondência estrutural</h3>
           <p><span class="mono">feedbacks[i]</span> → <span class="mono">conjuntos_lemas[i]</span> → <span class="mono">vértice i</span></p>
           <div class="quote" style="margin-top:30px">O ID do documento permanece estável em todo o pipeline.</div>
-          <p style="margin-top:28px"><strong>No app:</strong> upload de arquivo <span class="mono">.txt</span> ou geração controlada de 10 a 250 feedbacks.</p>
+          <p style="margin-top:28px"><strong>No app:</strong> upload de arquivo <span class="mono">.txt</span> ou geração controlada de 10 a 500 feedbacks, incluindo uma fração de textos fora dos temas principais.</p>
         </div>
       </div>
     </section>
@@ -647,7 +647,7 @@ O suporte pós-entrega respondeu...</pre>
       <div class="flow">
         <div class="stage"><h3>1. Normalização</h3><p>Lowercase, remoção de pontuação e, após a lematização, remoção de acentos.</p></div>
         <div class="stage"><h3>2. Tokenização</h3><p>O modelo <span class="mono">pt_core_news_sm</span> separa e analisa os tokens.</p></div>
-        <div class="stage"><h3>3. Filtragem</h3><p>Stopwords, espaços, pontuação, dígitos, termos curtos e stopwords do domínio.</p></div>
+        <div class="stage"><h3>3. Filtragem</h3><p>Stopwords, espaços, pontuação, dígitos, termos curtos e CUSTOM_STOPWORDS do domínio, como empresa, equipe, projeto, bem e muito.</p></div>
         <div class="stage"><h3>4. Lematização</h3><p>Variações flexionadas convergem para uma forma-base comparável.</p></div>
       </div>
       <p class="footer-note">spaCy é usado para processamento linguístico; Jaccard, grafo, Prim, DFS/BFS e HashTable foram implementados manualmente.</p>
@@ -720,23 +720,23 @@ interseção = 2    união = 4
             <li>Simetria natural para um grafo não direcionado.</li>
             <li>Combina com a implementação O(V²) do Prim.</li>
           </ul>
-          <p style="margin-top:25px;color:var(--muted)">Custo de memória: O(V²). Para até 250 documentos, a simplicidade é adequada ao escopo acadêmico.</p>
+          <p style="margin-top:25px;color:var(--muted)">Custo de memória: O(V²). Para o volume usado na apresentação, a simplicidade é adequada ao escopo acadêmico.</p>
         </div>
       </div>
     </section>
 
     <section class="slide soft" data-title="Métricas do grafo">
       <div class="topline"><div class="brand">TopicGraph EJ</div><div class="section-label">Métricas iniciais</div></div>
-      <h2>Com 250 textos gerados, o limiar <span class="mono accent">0,20</span> define relações relevantes</h2>
+      <h2>Com 300 textos gerados, o limiar <span class="mono accent">0,20</span> define relações relevantes</h2>
       <div class="grid-4">
-        <div class="metric"><strong>5.084</strong><span>arestas relevantes</span></div>
-        <div class="metric"><strong>40,67</strong><span>grau médio</span></div>
-        <div class="metric"><strong>0,1633</strong><span>densidade</span></div>
-        <div class="metric"><strong>67.240</strong><span>triângulos K3</span></div>
+        <div class="metric"><strong>281</strong><span>arestas na AGM máxima</span></div>
+        <div class="metric"><strong>41,40</strong><span>grau médio</span></div>
+        <div class="metric"><strong>0,1385</strong><span>densidade</span></div>
+        <div class="metric"><strong>91.080</strong><span>triângulos K3</span></div>
       </div>
       <div class="grid-2" style="margin-top:34px">
-        <article class="card"><h3>Grau</h3><p>Quantidade de vizinhos cuja similaridade é maior ou igual ao limiar.</p></article>
-        <article class="card"><h3>Densidade</h3><p>Proporção entre arestas relevantes e todas as 31.125 arestas possíveis.</p></article>
+        <article class="card"><h3>Grau</h3><p>Quantidade média de vizinhos no grafo de similaridade filtrado pelo limiar.</p></article>
+        <article class="card"><h3>Densidade</h3><p>Proporção entre arestas relevantes e todas as 44.850 arestas possíveis.</p></article>
       </div>
     </section>
 
@@ -755,7 +755,7 @@ interseção = 2    união = 4
         </div>
         <div class="arrow">→</div>
         <div class="graph-panel">
-          <h3>Floresta máxima com 247 arestas</h3>
+          <h3>Floresta máxima com 281 arestas</h3>
           <svg viewBox="0 0 500 320" aria-hidden="true">
             <g><path class="edge strong" d="M80 80 240 55M80 80 245 170M240 55 420 90M245 170 120 245M245 170 390 255"/></g>
             <g><circle class="node" cx="80" cy="80" r="27"/><circle class="node" cx="240" cy="55" r="27"/><circle class="node" cx="120" cy="245" r="27"/><circle class="node" cx="245" cy="170" r="27"/><circle class="node" cx="420" cy="90" r="27"/><circle class="node" cx="390" cy="255" r="27"/></g>
@@ -783,8 +783,8 @@ interseção = 2    união = 4
       <div class="grid-2">
         <div class="card">
           <h3>Antes</h3>
-          <p>O grafo relevante tem ciclos e 5.084 arestas. Há múltiplos caminhos para expressar a mesma coesão local.</p>
-          <strong style="font-size:54px;color:var(--teal)">5.084 → 247</strong>
+          <p>O grafo relevante tem ciclos, alta conectividade local e triângulos antes da AGM. Há múltiplos caminhos para expressar a mesma coesão local.</p>
+          <strong style="font-size:54px;color:var(--teal)">grafo filtrado → 281</strong>
         </div>
         <div class="card">
           <h3>Depois</h3>
@@ -797,7 +797,7 @@ interseção = 2    união = 4
 
     <section class="slide" data-title="Corte de arestas">
       <div class="topline"><div class="brand">TopicGraph EJ</div><div class="section-label">Separação de tópicos</div></div>
-      <h2>Cortamos arestas com peso <span class="mono accent">&lt; 0,20</span></h2>
+      <h2>Cortamos arestas fracas na AGM e mantemos outliers separados</h2>
       <div class="graph-wrap">
         <div class="graph-panel">
           <h3>Uma árvore conectada</h3>
@@ -819,7 +819,7 @@ interseção = 2    união = 4
           </svg>
         </div>
       </div>
-      <p class="footer-note">O parâmetro é empírico: menor tende a unir tópicos; maior tende a fragmentá-los.</p>
+      <p class="footer-note">Os triângulos são contados antes da AGM, no grafo de similaridade filtrado; depois a AGM reduz redundâncias para separar comunidades.</p>
     </section>
 
     <section class="slide soft" data-title="Comunidades">
@@ -852,12 +852,12 @@ interseção = 2    união = 4
       <div class="flow">
         <div class="stage"><h3>1. Detectar singleton</h3><p>Após o corte, componentes de tamanho 1 são separados para revisão.</p></div>
         <div class="stage"><h3>2. Buscar melhor vizinho</h3><p>Compara o vértice com todos os membros das outras comunidades.</p></div>
-        <div class="stage"><h3>3. Aplicar limiar</h3><p>Se a maior similaridade for ≥ 0,20, anexa à comunidade correspondente.</p></div>
+        <div class="stage"><h3>3. Aplicar limiar</h3><p>Se a maior similaridade for ≥ 0,30, anexa à comunidade correspondente.</p></div>
         <div class="stage"><h3>4. Classificar</h3><p>Sem similaridade suficiente, o documento permanece como outlier.</p></div>
       </div>
       <div class="grid-2" style="margin-top:34px">
-        <div class="metric"><strong>0</strong><span>outliers na geração de 250 feedbacks</span></div>
-        <div class="card"><h3>Por que isso importa?</h3><p>Evita criar um “tópico” artificial para todo texto isolado, sem forçar associação quando não há evidência.</p></div>
+        <div class="metric"><strong>24</strong><span>outliers na geração de 300 feedbacks</span></div>
+        <div class="card"><h3>Por que isso importa?</h3><p>Evita criar um “tópico” artificial para todo texto isolado; comunidades e outliers ficam separados quando não há evidência forte.</p></div>
       </div>
     </section>
 
@@ -894,27 +894,27 @@ interseção = 2    união = 4
 
     <section class="slide" data-title="Resultados">
       <div class="topline"><div class="brand">TopicGraph EJ</div><div class="section-label">Execução real</div></div>
-      <h2>Resultados da geração ao vivo com <span class="accent">250 feedbacks</span></h2>
+      <h2>Resultados da geração ao vivo com <span class="accent">300 feedbacks</span></h2>
       <div class="result-layout">
         <div class="card">
           <h3>Comunidades detectadas</h3>
           <div class="community-bars">
-            <div class="bar-row"><strong>Comunicação</strong><div class="bar-track"><div class="bar-fill" style="width:100%"></div></div><span>42</span></div>
-            <div class="bar-row"><strong>Prazos</strong><div class="bar-track"><div class="bar-fill" style="width:100%"></div></div><span>42</span></div>
-            <div class="bar-row"><strong>Qualidade</strong><div class="bar-track"><div class="bar-fill" style="width:100%"></div></div><span>42</span></div>
-            <div class="bar-row"><strong>Orçamento</strong><div class="bar-track"><div class="bar-fill" style="width:100%"></div></div><span>42</span></div>
-            <div class="bar-row"><strong>Suporte</strong><div class="bar-track"><div class="bar-fill" style="width:98%"></div></div><span>41</span></div>
-            <div class="bar-row"><strong>Apresentação</strong><div class="bar-track"><div class="bar-fill" style="width:98%"></div></div><span>41</span></div>
+            <div class="bar-row"><strong>Comunicação</strong><div class="bar-track"><div class="bar-fill" style="width:100%"></div></div><span>46</span></div>
+            <div class="bar-row"><strong>Prazos</strong><div class="bar-track"><div class="bar-fill" style="width:100%"></div></div><span>46</span></div>
+            <div class="bar-row"><strong>Qualidade</strong><div class="bar-track"><div class="bar-fill" style="width:100%"></div></div><span>46</span></div>
+            <div class="bar-row"><strong>Orçamento</strong><div class="bar-track"><div class="bar-fill" style="width:100%"></div></div><span>46</span></div>
+            <div class="bar-row"><strong>Suporte</strong><div class="bar-track"><div class="bar-fill" style="width:100%"></div></div><span>46</span></div>
+            <div class="bar-row"><strong>Apresentação</strong><div class="bar-track"><div class="bar-fill" style="width:100%"></div></div><span>46</span></div>
           </div>
         </div>
         <div>
           <div class="grid-2">
-            <div class="metric"><strong>250</strong><span>feedbacks</span></div>
+            <div class="metric"><strong>300</strong><span>feedbacks</span></div>
             <div class="metric"><strong>6</strong><span>comunidades</span></div>
-            <div class="metric"><strong>56</strong><span>lemas únicos</span></div>
-            <div class="metric"><strong>0</strong><span>outliers</span></div>
+            <div class="metric"><strong>192</strong><span>lemas únicos</span></div>
+            <div class="metric"><strong>24</strong><span>outliers</span></div>
           </div>
-          <p style="margin-top:26px"><strong>Destaque:</strong> a geração é balanceada entre seis temas e o pipeline recupera os seis grupos sem categorias prévias na etapa de detecção.</p>
+          <p style="margin-top:26px"><strong>Destaque:</strong> a geração combina seis temas principais com cerca de 8% de feedbacks fora do padrão, permitindo validar comunidades e outliers.</p>
         </div>
       </div>
     </section>
@@ -927,16 +927,16 @@ interseção = 2    união = 4
           <h3>Entrada</h3>
           <div class="fake-btn">Enviar .txt</div>
           <div class="fake-btn">Gerar e analisar</div>
-          <p style="font-size:17px;color:var(--muted);margin-top:24px">React + Vite<br>FastAPI</p>
+          <p style="font-size:17px;color:var(--muted);margin-top:24px">React + Vite<br>FastAPI<br>Relatório antes dos SVGs</p>
         </aside>
         <div class="app-main">
           <div class="mini-metrics">
-            <div class="mini-metric"><small>Feedbacks</small><strong>250</strong></div>
-            <div class="mini-metric"><small>Grau médio</small><strong>40,67</strong></div>
-            <div class="mini-metric"><small>Densidade</small><strong>.1633</strong></div>
+            <div class="mini-metric"><small>Feedbacks</small><strong>300</strong></div>
+            <div class="mini-metric"><small>Grau médio</small><strong>41,40</strong></div>
+            <div class="mini-metric"><small>Densidade</small><strong>.1385</strong></div>
             <div class="mini-metric"><small>Comunidades</small><strong>6</strong></div>
-            <div class="mini-metric"><small>Triângulos</small><strong>67.240</strong></div>
-            <div class="mini-metric"><small>Outliers</small><strong>0</strong></div>
+            <div class="mini-metric"><small>Triângulos</small><strong>91.080</strong></div>
+            <div class="mini-metric"><small>Outliers</small><strong>24</strong></div>
           </div>
           <div class="mini-flow">
             <svg viewBox="0 0 900 280" aria-hidden="true">
@@ -947,6 +947,7 @@ interseção = 2    união = 4
               <g transform="translate(625 30)"><path class="edge strong" d="M35 65 95 100M95 100 60 165M175 55 220 105M220 105 185 175"/><g fill="#0f766e"><circle cx="35" cy="65" r="17"/><circle cx="95" cy="100" r="17"/><circle cx="60" cy="165" r="17"/></g><g fill="#f5b942"><circle cx="175" cy="55" r="17"/><circle cx="220" cy="105" r="17"/><circle cx="185" cy="175" r="17"/></g></g>
             </svg>
           </div>
+          <p style="margin-top:16px;color:var(--muted)">Na interface, o relatório textual aparece antes das imagens; os feedbacks ficam em uma área expansível e cada SVG pode ser aberto em tela ampliada.</p>
         </div>
       </div>
     </section>
@@ -972,7 +973,7 @@ interseção = 2    união = 4
             <li>Simples, interpretável e auditável.</li>
             <li>Algoritmos centrais implementados manualmente.</li>
             <li>Boa separação em dados com vocabulário recorrente.</li>
-            <li>Visualização do processo ponta a ponta.</li>
+            <li>Visualização do processo ponta a ponta, com SVGs expansíveis.</li>
           </ul>
         </article>
         <article class="card">
@@ -993,7 +994,7 @@ interseção = 2    união = 4
         <div>
           <h2>Feedbacks soltos viram <span class="accent">estrutura, comunidades e informação acionável</span>.</h2>
           <p class="lead" style="margin-inline:auto">PLN prepara os textos. Jaccard mede proximidade. O grafo organiza relações. Prim e o corte revelam grupos. A HashTable ajuda a interpretá-los.</p>
-          <div class="title-meta" style="justify-content:center"><span>250 documentos</span><span>6 tópicos</span><span>0 outliers</span></div>
+          <div class="title-meta" style="justify-content:center"><span>300 documentos</span><span>6 tópicos</span><span>24 outliers</span></div>
         </div>
       </div>
     </section>
