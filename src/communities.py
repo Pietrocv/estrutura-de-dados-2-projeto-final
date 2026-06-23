@@ -2,7 +2,7 @@ from collections import deque
 
 
 LIMIAR_CORTE = 0.20
-LIMIAR_ANEXACAO = 0.20
+LIMIAR_ANEXACAO = 0.30
 
 
 def _validate_square_matrix(matrix):
