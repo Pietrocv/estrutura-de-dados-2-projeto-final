@@ -157,11 +157,11 @@ function App() {
               rel="noreferrer"
             >
               <ExternalLink size={17} />
-              GitHub do projeto
+              GitHub do Projeto
             </a>
-            <button type="button" onClick={() => window.alert("Pagina de apresentacao em construcao.")}>
-              Apresentacao
-            </button>
+            <a href="/presentation.html" target="_blank" rel="noreferrer">
+              Apresentação
+            </a>
           </div>
         </aside>
 
