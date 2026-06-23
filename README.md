@@ -434,14 +434,40 @@ próprios dados, sem limitar a detecção a categorias definidas pelo grupo.
 
 O repositorio tambem possui uma interface web para executar a analise visualmente.
 
-### Backend
+### Inicializacao rapida
+
+Na raiz do projeto, execute:
 
 ```powershell
+.\start-app.ps1
+```
+
+O script abre dois terminais: um para a API FastAPI e outro para o frontend Vite.
+Depois acesse:
+
+```text
+http://localhost:5173
+```
+
+Se o PowerShell bloquear a execucao do script, libere apenas para a sessao atual:
+
+```powershell
+Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
+.\start-app.ps1
+```
+
+### Inicializacao manual
+
+#### Backend
+
+```powershell
+.\.venv\Scripts\Activate.ps1
 python -m pip install -r requirements.txt
+python -m spacy download pt_core_news_sm
 python -m uvicorn api.app:app --host 127.0.0.1 --port 8000
 ```
 
-### Frontend
+#### Frontend
 
 Em outro terminal:
 
@@ -455,6 +481,12 @@ Depois abra:
 
 ```text
 http://localhost:5173
+```
+
+O botao **Apresentacao** abre a apresentacao local em:
+
+```text
+http://localhost:5173/presentation.html
 ```
 
 O app permite enviar um arquivo `.txt` de feedbacks ou gerar feedbacks aleatorios. A tela exibe primeiro o relatorio de metricas e, depois, as visualizacoes dos vertices iniciais, grafo filtrado e comunidades detectadas.
